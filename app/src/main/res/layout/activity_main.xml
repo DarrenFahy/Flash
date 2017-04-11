@@ -8,66 +8,105 @@
     tools:context="cosc150.flash.MainActivity">
 
     <TableLayout
-        android:layout_width="380dp"
-        android:layout_height="335dp"
+        android:layout_width="401dp"
+        android:layout_height="502dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="10dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="Char"
                 android:text="Character"
-                tools:layout_editor_absoluteX="76dp"
-                tools:layout_editor_absoluteY="43dp" />
+                tools:layout_editor_absoluteX="36dp"
+                tools:layout_editor_absoluteY="58dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz by Characters"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meaning"
+                android:onClick="sendMessage" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz by Deffinitions"
+                android:textAlignment="center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pinyin" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz by Pronounciation"
+                android:textAlignment="center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pidyin"
-                android:onClick="sendMessage"
-                tools:layout_editor_absoluteX="76dp"
-                tools:layout_editor_absoluteY="99dp" />
+                android:text="Random" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random Quiz"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button5"
+            <Switch
+                android:id="@+id/ModeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Meaning"
-                tools:layout_editor_absoluteX="76dp"
-                tools:layout_editor_absoluteY="155dp" />
+                android:showText="true"
+                android:splitTrack="false"
+                android:switchTextAppearance="@style/TextAppearance.AppCompat.Button"
+                android:text="Mode"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textOff="Prac"
+                android:textOn="Favs"
+                tools:checked="true" />
+
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Random"
-                tools:layout_editor_absoluteX="76dp"
-                tools:layout_editor_absoluteY="211dp" />
-        </TableRow>
-
-
     </TableLayout>
+
 
 </android.support.constraint.ConstraintLayout>

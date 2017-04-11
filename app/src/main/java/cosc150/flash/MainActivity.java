@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void Char( View view )
     {
-        TextView tv = (TextView) findViewById(R.id.button);
+        TextView tv = (TextView) findViewById(R.id.button2);
         tv.setText("Did this refresh?");
         t.start();
     }
 
     public void work( View view )
     {
-        TextView tv = (TextView) findViewById(R.id.button6);
+        TextView tv = (TextView) findViewById(R.id.button3);
         tv.setText("this worked?");
     }
 
@@ -77,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
     {
         for (int i = 0; i < 25; i++)
             System.out.println( d.get(i).meaning );
+    }
+
+    public void sendMessage(View view)
+    {
+        Intent intent = new Intent(this, Main2Activity.class);
+        Button editButton = (Button) findViewById(R.id.button2);
+        String message = editButton.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
 }
