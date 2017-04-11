@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
                     BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                     String str;
                     System.out.println("made it here!   1");
+
+                    Vector<FlashCard> cardList = new Vector<FlashCard>();
+
                     while ((str = in.readLine()) != null)
                     {
                         List<String> fclist = Arrays.asList(str.split(","));
@@ -44,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
 //                        System.out.println("Added meaning "+fclist.get(2));
 
                         FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
-                        List<FlashCard> dictList = Arrays.asList(fc);
-                        dictList.add(fc);
+
+                        cardList.add(fc);
                         System.out.println("Added meaning "+fclist.get(2));
 
                     }//end while
                     //work(v);
                     System.out.println("made it here!   2");
+                    printFC(cardList);
                     in.close();
                 }//end try
 
