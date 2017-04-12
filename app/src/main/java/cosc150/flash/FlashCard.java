@@ -20,13 +20,13 @@ public class FlashCard
         charString = cs;
         pinyin = p;
         meaning = m;
-        pastEightAtempts = 0;
+        pastEight = 0;
         priority = 0.0;
 
     }
 
     //getters
-    public double getPastEightAtempts() {return pastEightAtempts;}
+    public double getPastEightAtempts() {return pastEight;}
     public String getMeaning() {return meaning;}
     public String getCharString() {return charString;}
     public double getPriority() {return priority;}
@@ -36,7 +36,7 @@ public class FlashCard
     //setters
     public void calculatePriority() {priority = getPastEightAtempts()/EIGHT;}
     public void setPinyin(String pinyin) {this.pinyin = pinyin;}
-    public void incrementPastEightAtempts() {pastEightAtempts++;}
+    public void incrementPastEightAtempts() {pastEight++;}
     public void setCharString(String charString) {this.charString = charString;}
     public void setMeaning(String meaning) {this.meaning = meaning;}
     public void setCharacter(String s)
