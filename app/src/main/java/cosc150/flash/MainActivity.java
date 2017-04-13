@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.*;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+
+import static cosc150.flash.R.id.ModeSwitch;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -85,12 +88,37 @@ public class MainActivity extends AppCompatActivity {
             System.out.println( d.get(i).meaning );
     }
 
-    public void sendMessage(View view)
+    public void beginQuiz(View view)
     {
         Intent intent = new Intent(this, Main2Activity.class);
-        Button editButton = (Button) findViewById(R.id.button2);
-        String message = editButton.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        Intent intent2 = new Intent(this, Main2Activity.class);
+        Button srcButton;
+
+        Switch ModeSwitch = (Switch) findViewById(R.id.ModeSwitch);
+        Boolean switchState = ModeSwitch.isChecked();
+
+        switch (view.getId())
+        {
+            case R.id.button1:
+                srcButton = (Button) findViewById(R.id.button1);
+                break;
+            case R.id.button2:
+                srcButton = (Button) findViewById(R.id.button2);
+                break;
+            case R.id.button3:
+                srcButton = (Button) findViewById(R.id.button3);
+                break;
+            case R.id.button4:
+                srcButton = (Button) findViewById(R.id.button4);
+                break;
+            default:
+                throw new IllegalArgumentException("fuck... " );
+        }
+
+        String message = srcButton.getText().toString();
+        System.out.println( "message is: " + message);
+        intent.putExtra("game_title", message);
+        intent2.putExtra("game_mode", switchState);
         startActivity(intent);
     }
 

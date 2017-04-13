@@ -15,6 +15,9 @@ public class FlashCard
     double pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
 
+    int recentMeaning = 0;
+
+
     public FlashCard( String cs, String p, String m)
     {
         charString = cs;
