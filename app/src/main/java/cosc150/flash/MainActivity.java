@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -83,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
         Switch ModeSwitch = (Switch) findViewById(R.id.ModeSwitch);
         Boolean switchState = ModeSwitch.isChecked();
 
-        intent.putExtra ( "text", findViewById(editText2).getText().toString() );
+        intent.putExtra ( "text", findViewById(R.id.editText2).toString());
 
-        //EditText cardNum = (EditText) findViewById(editText2);
+        EditText cardNum = (EditText) findViewById(R.id.editText2);
         String no = cardNum.getText().toString();
         //String text = edit_text.getText.toString;
         int numCards = Integer.parseInt(no);
