@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-import static cosc150.flash.R.id.ModeSwitch;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -69,19 +68,6 @@ public class MainActivity extends AppCompatActivity {
     );//end thead
 
 
-    public void Char( View view )
-    {
-        TextView tv = (TextView) findViewById(R.id.button2);
-        tv.setText("Did this refresh?");
-        t.start();
-    }
-
-    public void work( View view )
-    {
-        TextView tv = (TextView) findViewById(R.id.button3);
-        tv.setText("this worked?");
-    }
-
     public void printFC(List<FlashCard> d)
     {
         for (int i = 0; i < 25; i++)
@@ -91,11 +77,19 @@ public class MainActivity extends AppCompatActivity {
     public void beginQuiz(View view)
     {
         Intent intent = new Intent(this, Main2Activity.class);
-        Intent intent2 = new Intent(this, Main2Activity.class);
+        Bundle extras = new Bundle();
         Button srcButton;
 
         Switch ModeSwitch = (Switch) findViewById(R.id.ModeSwitch);
         Boolean switchState = ModeSwitch.isChecked();
+
+        intent.putExtra ( "text", findViewById(editText2).getText().toString() );
+
+        //EditText cardNum = (EditText) findViewById(editText2);
+        String no = cardNum.getText().toString();
+        //String text = edit_text.getText.toString;
+        int numCards = Integer.parseInt(no);
+
 
         switch (view.getId())
         {
@@ -112,13 +106,14 @@ public class MainActivity extends AppCompatActivity {
                 srcButton = (Button) findViewById(R.id.button4);
                 break;
             default:
-                throw new IllegalArgumentException("fuck... " );
+                throw new IllegalArgumentException("shit... " );
         }
 
         String message = srcButton.getText().toString();
-        System.out.println( "message is: " + message);
-        intent.putExtra("game_title", message);
-        intent2.putExtra("game_mode", switchState);
+
+        extras.putString("game_title", message);
+        extras.putBoolean("game_mode", switchState);
+        extras.putInt("number_cards", numCards);
         startActivity(intent);
     }
 

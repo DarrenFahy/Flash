@@ -12,22 +12,25 @@ public class Main2Activity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //System.out.println(str);
-        quizTitle();
-
-    }
-
-    public void quizTitle( )
-    {
         Intent intent = getIntent();
-        String str = intent.getStringExtra("game_title");
+        Bundle extras = intent.getExtras();
+
+        //set title to name of button clicked
+        String str = extras.getString("game_title");
         TextView title = (TextView) findViewById(R.id.textView5);
         title.setText(str);
-    }
-    public void gameType()
-    {
-        Intent intent2 = getIntent();
-        Boolean type = intent2.getBooleanExtra("game_mode");
+
+        //Specify type of quiz based on switch
+        Boolean type = extras.getBoolean("game_mode");
+
+        //number of cards to test
+        int numCards = extras.getInt("number_cards");
+
+        System.out.println( "Game mode is: " + type);
+        System.out.println( "And number of cards is: " + numCards);
+
+
 
     }
+
 }
