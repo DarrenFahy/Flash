@@ -19,54 +19,18 @@ import java.util.List;
 import java.util.Vector;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    View v;
-    Thread t= new Thread(
-        new Runnable ()
-        {
-            public void run()
-            {
-                try
-                {
-                    // Create a URL for the desired page
-                    URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
-                    // Read all the text returned by the server
-                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-                    String str;
-                    System.out.println("made it here!   1");
 
-                    Vector<FlashCard> cardList = new Vector<FlashCard>();
 
-                    while ((str = in.readLine()) != null)
-                    {
-                        List<String> fclist = Arrays.asList(str.split(","));
-//                        System.out.println("Symbol "+fclist.get(0));
-//                        System.out.println("Pinyin "+fclist.get(1));
-//                        System.out.println("Added meaning "+fclist.get(2));
-
-                        FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
-
-                        cardList.add(fc);
-                        System.out.println("Added meaning "+fclist.get(2));
-
-                    }//end while
-                    //work(v);
-                    System.out.println("made it here!   2");
-                    printFC(cardList);
-                    in.close();
-                }//end try
-
-                catch (Exception e) {Log.i("MA.L----->", "error=" + e);}
-
-            }//end run()
-        }//end runable()
-    );//end thead
 
 
     public void printFC(List<FlashCard> d)
@@ -83,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         Switch ModeSwitch = (Switch) findViewById(R.id.ModeSwitch);
         Boolean switchState = ModeSwitch.isChecked();
-
-        intent.putExtra ( "text", findViewById(R.id.editText2).toString());
 
         EditText cardNum = (EditText) findViewById(R.id.editText2);
         String no = cardNum.getText().toString();
@@ -112,9 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         String message = srcButton.getText().toString();
 
+        System.out.println("message in MA is: " + message);
+
         extras.putString("game_title", message);
         extras.putBoolean("game_mode", switchState);
         extras.putInt("number_cards", numCards);
+        intent.putExtras(extras);
         startActivity(intent);
     }
 
