@@ -32,6 +32,32 @@ public class Main2Activity extends AppCompatActivity
         TextView title = (TextView) findViewById(R.id.textView5);
         title.setText(str);
 
+
+        TextView test1 = (TextView) findViewById(R.id.otherTV1);
+        TextView test2 = (TextView) findViewById(R.id.otherTV2);
+
+        if ( str.equals("Meaning"))
+        {
+            test1.setText("Pinyin");
+            test2.setText("Character");
+        }
+        else if (str.equals("Pinyin"))
+        {
+            test1.setText("Meaning");
+            test2.setText("Character");
+        }
+        else if (str.equals("Character"))
+        {
+            test1.setText("Meaning");
+            test2.setText("Pinyin");
+        }
+        else if (str.equals("Random") )
+        {
+            test1.setText("Meaning");
+            test2.setText("Character");
+        }
+
+
         //Specify type of quiz based on switch
         Boolean type = extras.getBoolean("game_mode");
         String txt = extras.getString("text");
