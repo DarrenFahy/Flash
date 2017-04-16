@@ -30,7 +30,7 @@ public class Main2Activity extends AppCompatActivity
         //set title to name of button clicked
         String str = extras.getString("game_title");
         TextView title = (TextView) findViewById(R.id.textView5);
-        title.setText(str);
+       // getWindow().setTitle(title.toString());
 
 
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
@@ -75,21 +75,24 @@ public class Main2Activity extends AppCompatActivity
 
     public void importCards()
     {
+        System.out.println("made it here!   1----------------------------------");
         View v;
         Thread t= new Thread(
                 new Runnable ()
                 {
                     public void run()
-                    {
+                    {  //never makes it to the runnable
+                        System.out.println("made it here!   2----------------------------------");
+
                         try
                         {
+                            System.out.println("made it here!   3----------------------------------");
+
                             // Create a URL for the desired page
                             URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
                             // Read all the text returned by the server
                             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                             String str;
-                            System.out.println("made it here!   1");
-
                             Vector<FlashCard> cardList = new Vector<FlashCard>();
 
                             while ((str = in.readLine()) != null)
@@ -116,6 +119,7 @@ public class Main2Activity extends AppCompatActivity
                     }//end run()
                 }//end runable()
         );//end thead
+
     }//end import cards
 
 
