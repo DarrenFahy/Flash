@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+import android.graphics.Color;
+
 
 public class Main2Activity extends AppCompatActivity
 {
@@ -46,40 +48,29 @@ public class Main2Activity extends AppCompatActivity
         title.setText(str);
        // getWindow().setTitle(title.toString());
 
-
-        TextView test1 = (TextView) findViewById(R.id.otherTV1);
-        TextView test2 = (TextView) findViewById(R.id.otherTV2);
-        Button upper1 = (Button) findViewById(R.id.upper1);
-        Button upper2 = (Button) findViewById(R.id.upper2);
-        Button upper3 = (Button) findViewById(R.id.upper3);
-        Button upper4 = (Button) findViewById(R.id.upper4);
-        Button lower1 = (Button) findViewById(R.id.lower1);
-        Button lower2 = (Button) findViewById(R.id.lower2);
-        Button lower3 = (Button) findViewById(R.id.lower3);
-        Button lower4 = (Button) findViewById(R.id.lower4);
-
         int min = 0;
         int max = fcards.size();
         Random r = new Random();
         int i1 = r.nextInt(max - min + 1);
 
 
-        if ( str.equals("Meaning"))
+         if ( str.equals("Meaning"))
         {
 
-            test1.setText("Pinyin");
-            upper1.setText();
-            upper2.setText();
-            upper3.setText();
-            upper4.setText();
+            meaningQuiz(extras.getInt("number_cards"));
+          /*  test1.setText("Pinyin");
+            upper1.setText("test");
+            upper2.setText("test");
+            upper3.setText("test");
+            upper4.setText("test");
 
             test2.setText("Character");
-            lower1.setText();
-            lower2.setText();
-            lower3.setText();
-            lower4.setText();
+            lower1.setText("test");
+            lower2.setText("test");
+            lower3.setText("test");
+            lower4.setText("test");*/
         }
-        else if (str.equals("Pinyin"))
+     /*   else if (str.equals("Pinyin"))
         {
             test1.setText("Meaning");
             test2.setText("Character");
@@ -94,7 +85,7 @@ public class Main2Activity extends AppCompatActivity
             test1.setText("Meaning");
             test2.setText("Character");
         }
-
+*/
 
         //Specify type of quiz based on switch
         Boolean type = extras.getBoolean("game_mode");
@@ -115,32 +106,31 @@ public class Main2Activity extends AppCompatActivity
 
     public void importCards()
     {
-        System.out.println("made it here!   1----------------------------------");
         View v;
         Thread t= new Thread(
                 new Runnable ()
                 {
-                    public void run()
-                    {  //never makes it to the runnable
-                        System.out.println("made it here!   2----------------------------------");
 
+                    @Override
+                    public void run()
+                    {
                         try
                         {
-                            System.out.println("made it here!   3----------------------------------");
-
                             // Create a URL for the desired page
                             URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
                             // Read all the text returned by the server
                             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                             String str;
+                            System.out.println("made it here!   1");
+
                             Vector<FlashCard> cardList = new Vector<FlashCard>();
 
                             while ((str = in.readLine()) != null)
                             {
                                 List<String> fclist = Arrays.asList(str.split(","));
-                                System.out.println("Symbol "+fclist.get(0));
-                                System.out.println("Pinyin "+fclist.get(1));
-                                System.out.println("Added meaning "+fclist.get(2));
+//                        System.out.println("Symbol "+fclist.get(0));
+//                        System.out.println("Pinyin "+fclist.get(1));
+//                        System.out.println("Added meaning "+fclist.get(2));
 
                                 FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
 
@@ -148,7 +138,7 @@ public class Main2Activity extends AppCompatActivity
                                 System.out.println("Added meaning "+fclist.get(2));
 
                             }//end while
-
+                            //work(v);
                             System.out.println("made it here!   2");
                             printFC(cardList);
                             in.close();
@@ -240,6 +230,283 @@ public class Main2Activity extends AppCompatActivity
     {
         for (int i = 0; i < 25; i++)
             System.out.println( d.get(i).meaning );
+    }
+
+    public void meaningQuiz(int m)
+    {
+        TextView test1 = (TextView) findViewById(R.id.otherTV1);
+        TextView test2 = (TextView) findViewById(R.id.otherTV2);
+        final Button upper1 = (Button) findViewById(R.id.upper1);
+        final Button upper2 = (Button) findViewById(R.id.upper2);
+        final Button upper3 = (Button) findViewById(R.id.upper3);
+        final Button upper4 = (Button) findViewById(R.id.upper4);
+        final Button lower1 = (Button) findViewById(R.id.lower1);
+        final Button lower2 = (Button) findViewById(R.id.lower2);
+        final Button lower3 = (Button) findViewById(R.id.lower3);
+        final Button lower4 = (Button) findViewById(R.id.lower4);
+        test1.setText("Pinyin");
+        test2.setText("Character");
+        int correctTop;
+        int correctBottom;
+        Random rand1 = new Random();
+        int currentFCNumber;
+        int wrong1;
+        int wrong2;
+        int wrong3;
+        Vector <FlashCard> set = manualCards();
+
+        for(int i = 0; i < m; i++)
+        {
+            currentFCNumber = rand1.nextInt(8) + 0;
+
+            do
+            {
+                wrong1 = rand1.nextInt(8) + 0;
+            }
+            while(wrong1 == currentFCNumber);
+
+            do
+            {
+                wrong2 = rand1.nextInt(8) + 0;
+            }
+            while((wrong2 == currentFCNumber)||(wrong2 == wrong1));
+
+            do
+            {
+                wrong3 = rand1.nextInt(8) + 0;
+            }
+            while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
+
+            correctTop = rand1.nextInt(4) + 1;;
+            correctBottom = rand1.nextInt(4) + 1;
+           // System.out.println(correctBottom + "kkkkkkkkk " +correctTop+" kkkkkkkkkkkkkkkkkk");
+            FlashCard current = set.get(currentFCNumber);
+            FlashCard wrong11 = set.get(wrong1);
+            FlashCard wrong12 = set.get(wrong2);
+            FlashCard wrong13 = set.get(wrong3);
+           System.out.println(correctTop + "ppppppppppppppppppp");
+            if(correctTop == 1)
+            {
+                upper1.setText(current.getPinyin());
+                upper2.setText(wrong11.getPinyin());
+                upper3.setText(wrong12.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+
+                upper1.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper1.setBackgroundColor(Color.GREEN);
+                    }
+                });
+/*
+
+                upper2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper2.setBackgroundColor(Color.RED);
+                    }
+                });
+
+
+                upper3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper3.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper4.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper2.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper3.setBackgroundColor(Color.RED);
+                    }
+                });
+                upper4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper4.setBackgroundColor(Color.RED);
+                    }
+                });
+*/
+            }
+
+            if(correctTop == 2)
+            {
+                System.out.println("in 1=====");
+
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(current.getPinyin());
+                upper3.setText(wrong12.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+
+/*
+                upper1.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper1.setBackgroundColor(Color.RED);
+                    }
+                });
+*/
+
+                upper2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper2.setBackgroundColor(Color.GREEN);
+                    }
+                });
+
+/*
+                upper3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper3.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper4.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper2.setBackgroundColor(Color.RED);
+                    }
+                });
+
+                upper3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper3.setBackgroundColor(Color.RED);
+                    }
+                });
+                upper4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper4.setBackgroundColor(Color.RED);
+                    }
+                });
+*/
+            }
+
+            if(correctTop == 3)
+            {
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(wrong12.getPinyin());
+                upper3.setText(current.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+
+                upper3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper3.setBackgroundColor(Color.GREEN);
+                    }
+                });
+            }
+
+            if(correctTop == 4)
+            {
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(wrong12.getPinyin());
+                upper3.setText(wrong13.getPinyin());
+                upper4.setText(current.getPinyin());
+
+                upper4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        upper4.setBackgroundColor(Color.GREEN);
+                    }
+                });
+            }
+//--------------------------------------------------------------------------------------------------
+
+
+            if(correctBottom == 0)
+            {
+                lower1.setText(current.charString);
+                lower2.setText(wrong11.charString);
+                lower3.setText(wrong12.charString);
+                lower4.setText(wrong13.charString);
+            }
+            if(correctBottom == 1)
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(current.charString);
+                lower3.setText(wrong12.charString);
+                lower4.setText(wrong13.charString);
+            }
+
+            if(correctBottom == 2)
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(wrong12.charString);
+                lower3.setText(current.charString);
+                lower4.setText(wrong13.charString);
+            }
+
+            if(correctBottom == 3)
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(wrong12.charString);
+                lower3.setText(wrong13.charString);
+                lower4.setText(current.charString);
+            }
+
+
+
+        }
+
+
+
     }
 
 }
