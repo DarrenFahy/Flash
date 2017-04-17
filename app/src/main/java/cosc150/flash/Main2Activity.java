@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -253,12 +254,13 @@ public class Main2Activity extends AppCompatActivity
 
             correctTop = rand1.nextInt(4) + 1;;
             correctBottom = rand1.nextInt(4) + 1;
-           // System.out.println(correctBottom + "kkkkkkkkk " +correctTop+" kkkkkkkkkkkkkkkkkk");
             FlashCard current = set.get(currentFCNumber);
             FlashCard wrong11 = set.get(wrong1);
             FlashCard wrong12 = set.get(wrong2);
             FlashCard wrong13 = set.get(wrong3);
-           System.out.println(correctTop + "ppppppppppppppppppp");
+           System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
+
+
             if(correctTop == 1)
             {
                 upper1.setText(current.getPinyin());
@@ -272,64 +274,12 @@ public class Main2Activity extends AppCompatActivity
                     public void onClick(View arg0)
                     {
                         upper1.setBackgroundColor(Color.GREEN);
-                    }
-                });
-/*
-
-                upper2.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper2.setBackgroundColor(Color.RED);
+                        upper2.setEnabled(false);
+                        upper3.setEnabled(false);
+                        upper4.setEnabled(false);
                     }
                 });
 
-
-                upper3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper3.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper4.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper2.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper2.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper3.setBackgroundColor(Color.RED);
-                    }
-                });
-                upper4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper4.setBackgroundColor(Color.RED);
-                    }
-                });
-*/
             }
 
             if(correctTop == 2)
@@ -341,72 +291,19 @@ public class Main2Activity extends AppCompatActivity
                 upper3.setText(wrong12.getPinyin());
                 upper4.setText(wrong13.getPinyin());
 
-/*
-                upper1.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper1.setBackgroundColor(Color.RED);
-                    }
-                });
-*/
-
                 upper2.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View arg0)
                     {
                         upper2.setBackgroundColor(Color.GREEN);
-                        nextButton.setVisibility(1);
+                        upper1.setEnabled(false);
+                        upper3.setEnabled(false);
+                        upper4.setEnabled(false);
+
                     }
                 });
 
-/*
-                upper3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper3.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper4.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper2.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper2.setBackgroundColor(Color.RED);
-                    }
-                });
-
-                upper3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper3.setBackgroundColor(Color.RED);
-                    }
-                });
-                upper4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper4.setBackgroundColor(Color.RED);
-                    }
-                });
-*/
             }
 
             if(correctTop == 3)
@@ -422,6 +319,9 @@ public class Main2Activity extends AppCompatActivity
                     public void onClick(View arg0)
                     {
                         upper3.setBackgroundColor(Color.GREEN);
+                        upper2.setEnabled(false);
+                        upper1.setEnabled(false);
+                        upper4.setEnabled(false);
                     }
                 });
             }
@@ -439,41 +339,92 @@ public class Main2Activity extends AppCompatActivity
                     public void onClick(View arg0)
                     {
                         upper4.setBackgroundColor(Color.GREEN);
+                        upper2.setEnabled(false);
+                        upper3.setEnabled(false);
+                        upper1.setEnabled(false);
                     }
                 });
             }
 //--------------------------------------------------------------------------------------------------
 
 
-            if(correctBottom == 0)
+            if(correctBottom == 1)
             {
                 lower1.setText(current.charString);
                 lower2.setText(wrong11.charString);
                 lower3.setText(wrong12.charString);
                 lower4.setText(wrong13.charString);
+
+                lower1.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        lower1.setBackgroundColor(Color.GREEN);
+                        lower2.setEnabled(false);
+                        lower3.setEnabled(false);
+                        lower4.setEnabled(false);
+                    }
+                });
             }
-            if(correctBottom == 1)
+            if(correctBottom == 2)
             {
                 lower1.setText(wrong11.charString);
                 lower2.setText(current.charString);
                 lower3.setText(wrong12.charString);
                 lower4.setText(wrong13.charString);
-            }
 
-            if(correctBottom == 2)
-            {
-                lower1.setText(wrong11.charString);
-                lower2.setText(wrong12.charString);
-                lower3.setText(current.charString);
-                lower4.setText(wrong13.charString);
+                lower2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        lower2.setBackgroundColor(Color.GREEN);
+                        lower1.setEnabled(false);
+                        lower3.setEnabled(false);
+                        lower4.setEnabled(false);
+                    }
+                });
             }
 
             if(correctBottom == 3)
             {
                 lower1.setText(wrong11.charString);
                 lower2.setText(wrong12.charString);
+                lower3.setText(current.charString);
+                lower4.setText(wrong13.charString);
+
+                lower3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        lower3.setBackgroundColor(Color.GREEN);
+                        lower2.setEnabled(false);
+                        lower1.setEnabled(false);
+                        lower4.setEnabled(false);
+                    }
+                });
+            }
+
+            if(correctBottom == 4)
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(wrong12.charString);
                 lower3.setText(wrong13.charString);
                 lower4.setText(current.charString);
+
+                lower4.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View arg0)
+                    {
+                        lower4.setBackgroundColor(Color.GREEN);
+                        lower2.setEnabled(false);
+                        lower3.setEnabled(false);
+                        lower1.setEnabled(false);
+                    }
+                });
             }
 
 
