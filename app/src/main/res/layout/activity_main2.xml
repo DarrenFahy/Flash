@@ -28,7 +28,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/currentCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -119,6 +119,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Card"
+                android:visibility="invisible"
+                android:onClick="checkResult"
+                tools:layout_editor_absoluteX="93dp"
+                tools:layout_editor_absoluteY="254dp" />
+
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
@@ -127,4 +137,5 @@
                 android:textAlignment="center" />
         </TableRow>
     </TableLayout>
+
 </android.support.constraint.ConstraintLayout>

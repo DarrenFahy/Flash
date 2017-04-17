@@ -29,11 +29,14 @@ public class Main2Activity extends AppCompatActivity
 {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        startGame();
+    }
 
+    public void startGame()
+    {
 //        System.out.println("load file function");
 //        loadFile();
 
@@ -152,39 +155,9 @@ public class Main2Activity extends AppCompatActivity
 
     }//end import cards
 
-    public void loadFile()
+    public void newCard()
     {
-        System.out.println("ok im here");
-        FileInputStream fis;
-        final StringBuffer storedString = new StringBuffer();
-        //BufferedReader in = new BufferedReader();
 
-        try {
-            fis = openFileInput("/Users/Darren/Downloads/dict.txt");
-
-            String str;
-            Vector<FlashCard> cardList = new Vector<FlashCard>();
-            byte[] bbuf = new byte[50];
-            while ((fis.read(bbuf, 0, 20)) != -1)
-            {
-                str = new String(bbuf);
-                List<String> fclist = Arrays.asList(str.split(","));
-
-                System.out.println("Symbol "+fclist.get(0));
-                System.out.println("Pinyin "+fclist.get(1));
-                System.out.println("Added meaning "+fclist.get(2));
-
-                FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
-
-                cardList.add(fc);
-                System.out.println("Added meaning "+fclist.get(2));
-
-            }//end while
-        }
-        catch  (Exception e)
-        {
-            System.out.println("some error...");
-        }
     }
     public Vector <FlashCard> manualCards()
     {
@@ -244,6 +217,7 @@ public class Main2Activity extends AppCompatActivity
         final Button lower2 = (Button) findViewById(R.id.lower2);
         final Button lower3 = (Button) findViewById(R.id.lower3);
         final Button lower4 = (Button) findViewById(R.id.lower4);
+        final Button nextButton = (Button) findViewById(R.id.nextButton);
         test1.setText("Pinyin");
         test2.setText("Character");
         int correctTop;
@@ -384,6 +358,7 @@ public class Main2Activity extends AppCompatActivity
                     public void onClick(View arg0)
                     {
                         upper2.setBackgroundColor(Color.GREEN);
+                        nextButton.setVisibility(1);
                     }
                 });
 
