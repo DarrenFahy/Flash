@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 
 public class Main2Activity extends AppCompatActivity
@@ -30,8 +32,10 @@ public class Main2Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        System.out.println("load file function");
-        loadFile();
+//        System.out.println("load file function");
+//        loadFile();
+
+        Vector<FlashCard> fcards = manualCards();
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -45,11 +49,35 @@ public class Main2Activity extends AppCompatActivity
 
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
+        Button upper1 = (Button) findViewById(R.id.upper1);
+        Button upper2 = (Button) findViewById(R.id.upper2);
+        Button upper3 = (Button) findViewById(R.id.upper3);
+        Button upper4 = (Button) findViewById(R.id.upper4);
+        Button lower1 = (Button) findViewById(R.id.lower1);
+        Button lower2 = (Button) findViewById(R.id.lower2);
+        Button lower3 = (Button) findViewById(R.id.lower3);
+        Button lower4 = (Button) findViewById(R.id.lower4);
+
+        int min = 0;
+        int max = fcards.size();
+        Random r = new Random();
+        int i1 = r.nextInt(max - min + 1);
+
 
         if ( str.equals("Meaning"))
         {
+
             test1.setText("Pinyin");
+            upper1.setText();
+            upper2.setText();
+            upper3.setText();
+            upper4.setText();
+
             test2.setText("Character");
+            lower1.setText();
+            lower2.setText();
+            lower3.setText();
+            lower4.setText();
         }
         else if (str.equals("Pinyin"))
         {
@@ -79,7 +107,7 @@ public class Main2Activity extends AppCompatActivity
         System.out.println( "And number of cards is: " + numCards + " and message: " + str);
 
         //loadFile();
-        manualCards();
+
         System.out.println( "Tried my best to print cards");
 
 
@@ -168,7 +196,7 @@ public class Main2Activity extends AppCompatActivity
             System.out.println("some error...");
         }
     }
-    public void manualCards()
+    public Vector <FlashCard> manualCards()
     {
         Vector <FlashCard> cardList1 = new Vector<FlashCard>();
 
@@ -203,6 +231,8 @@ public class Main2Activity extends AppCompatActivity
         {
             System.out.println(cardList1.get(i).meaning);
         }
+
+        return cardList1;
     }
 
 
