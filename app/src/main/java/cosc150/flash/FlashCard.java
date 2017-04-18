@@ -13,6 +13,8 @@ public class FlashCard
     int character;
     int pastEight[];
     double priority; //the higher the number, the more the user knows the flash card.
+    boolean quizUpperCorrect;
+    boolean quizLowerCorrect;
 
     int recentMeaning = 0;
 
@@ -24,7 +26,8 @@ public class FlashCard
         meaning = m;
         pastEight = new int[] {0,0,0,0,0,0,0,0};
         priority = 0.0;
-
+        quizUpperCorrect = false;
+        quizLowerCorrect = false;
     }
 
     //getters
