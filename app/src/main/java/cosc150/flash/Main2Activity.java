@@ -305,7 +305,7 @@ public class Main2Activity extends AppCompatActivity
                 if (correctTop == 1)
                 {
                     upper1.setBackgroundColor(Color.GREEN);
-                    set.get(currentFCNumber).pastEight++;
+                    //set.get(currentFCNumber).pastEight++;
                 }
                 else
                     upper1.setBackgroundColor(Color.RED);
@@ -465,7 +465,7 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
 
-                if()
+               // if()
 
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
