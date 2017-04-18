@@ -61,7 +61,7 @@ public class Main2Activity extends AppCompatActivity
          if ( str.equals("Meaning"))
         {
 
-            meaningQuiz(extras.getInt("number_cards"));
+            meaningQuiz(fcards, 0);
           /*  test1.setText("Pinyin");
             upper1.setText("test");
             upper2.setText("test");
@@ -156,10 +156,7 @@ public class Main2Activity extends AppCompatActivity
 
     }//end import cards
 
-    public void newCard()
-    {
 
-    }
     public Vector <FlashCard> manualCards()
     {
         Vector <FlashCard> cardList1 = new Vector<FlashCard>();
@@ -199,6 +196,12 @@ public class Main2Activity extends AppCompatActivity
         return cardList1;
     }
 
+    public void callNext( int x)
+    {
+        Vector<FlashCard> fc = manualCards();
+        meaningQuiz(fc, x+1);
+    }
+
 
     public void printFC(List<FlashCard> d)
     {
@@ -206,7 +209,8 @@ public class Main2Activity extends AppCompatActivity
             System.out.println( d.get(i).meaning );
     }
 
-    public void meaningQuiz(int m)
+
+    public void meaningQuiz(Vector<FlashCard> set, int x)
     {
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
@@ -228,211 +232,212 @@ public class Main2Activity extends AppCompatActivity
         int wrong1;
         int wrong2;
         int wrong3;
-        Vector <FlashCard> set = manualCards();
+        int m = set.size() -1;
 
-        for(int i = 0; i < m; i++)
+
+        currentFCNumber = x;
+
+        do
         {
-            currentFCNumber = rand1.nextInt(8) + 0;
+            wrong1 = rand1.nextInt(8) + 0;
+        }
+        while(wrong1 == currentFCNumber);
 
-            do
+        do
+        {
+            wrong2 = rand1.nextInt(8) + 0;
+        }
+        while((wrong2 == currentFCNumber)||(wrong2 == wrong1));
+
+        do
+        {
+            wrong3 = rand1.nextInt(8) + 0;
+        }
+        while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
+
+        correctTop = rand1.nextInt(4) + 1;;
+        correctBottom = rand1.nextInt(4) + 1;
+        FlashCard current = set.get(currentFCNumber);
+        FlashCard wrong11 = set.get(wrong1);
+        FlashCard wrong12 = set.get(wrong2);
+        FlashCard wrong13 = set.get(wrong3);
+       System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
+
+
+        if(correctTop == 1)
+        {
+            upper1.setText(current.getPinyin());
+            upper2.setText(wrong11.getPinyin());
+            upper3.setText(wrong12.getPinyin());
+            upper4.setText(wrong13.getPinyin());
+
+            upper1.setOnClickListener(new View.OnClickListener()
             {
-                wrong1 = rand1.nextInt(8) + 0;
-            }
-            while(wrong1 == currentFCNumber);
-
-            do
-            {
-                wrong2 = rand1.nextInt(8) + 0;
-            }
-            while((wrong2 == currentFCNumber)||(wrong2 == wrong1));
-
-            do
-            {
-                wrong3 = rand1.nextInt(8) + 0;
-            }
-            while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
-
-            correctTop = rand1.nextInt(4) + 1;;
-            correctBottom = rand1.nextInt(4) + 1;
-            FlashCard current = set.get(currentFCNumber);
-            FlashCard wrong11 = set.get(wrong1);
-            FlashCard wrong12 = set.get(wrong2);
-            FlashCard wrong13 = set.get(wrong3);
-           System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
-
-
-            if(correctTop == 1)
-            {
-                upper1.setText(current.getPinyin());
-                upper2.setText(wrong11.getPinyin());
-                upper3.setText(wrong12.getPinyin());
-                upper4.setText(wrong13.getPinyin());
-
-                upper1.setOnClickListener(new View.OnClickListener()
+                @Override
+                public void onClick(View arg0)
                 {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper1.setBackgroundColor(Color.GREEN);
-                        upper2.setEnabled(false);
-                        upper3.setEnabled(false);
-                        upper4.setEnabled(false);
-                    }
-                });
-
-            }
-
-            if(correctTop == 2)
-            {
-                System.out.println("in 1=====");
-
-                upper1.setText(wrong11.getPinyin());
-                upper2.setText(current.getPinyin());
-                upper3.setText(wrong12.getPinyin());
-                upper4.setText(wrong13.getPinyin());
-
-                upper2.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper2.setBackgroundColor(Color.GREEN);
-                        upper1.setEnabled(false);
-                        upper3.setEnabled(false);
-                        upper4.setEnabled(false);
-
-                    }
-                });
-
-            }
-
-            if(correctTop == 3)
-            {
-                upper1.setText(wrong11.getPinyin());
-                upper2.setText(wrong12.getPinyin());
-                upper3.setText(current.getPinyin());
-                upper4.setText(wrong13.getPinyin());
-
-                upper3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper3.setBackgroundColor(Color.GREEN);
-                        upper2.setEnabled(false);
-                        upper1.setEnabled(false);
-                        upper4.setEnabled(false);
-                    }
-                });
-            }
-
-            if(correctTop == 4)
-            {
-                upper1.setText(wrong11.getPinyin());
-                upper2.setText(wrong12.getPinyin());
-                upper3.setText(wrong13.getPinyin());
-                upper4.setText(current.getPinyin());
-
-                upper4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        upper4.setBackgroundColor(Color.GREEN);
-                        upper2.setEnabled(false);
-                        upper3.setEnabled(false);
-                        upper1.setEnabled(false);
-                    }
-                });
-            }
-//--------------------------------------------------------------------------------------------------
-
-
-            if(correctBottom == 1)
-            {
-                lower1.setText(current.charString);
-                lower2.setText(wrong11.charString);
-                lower3.setText(wrong12.charString);
-                lower4.setText(wrong13.charString);
-
-                lower1.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        lower1.setBackgroundColor(Color.GREEN);
-                        lower2.setEnabled(false);
-                        lower3.setEnabled(false);
-                        lower4.setEnabled(false);
-                    }
-                });
-            }
-            if(correctBottom == 2)
-            {
-                lower1.setText(wrong11.charString);
-                lower2.setText(current.charString);
-                lower3.setText(wrong12.charString);
-                lower4.setText(wrong13.charString);
-
-                lower2.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        lower2.setBackgroundColor(Color.GREEN);
-                        lower1.setEnabled(false);
-                        lower3.setEnabled(false);
-                        lower4.setEnabled(false);
-                    }
-                });
-            }
-
-            if(correctBottom == 3)
-            {
-                lower1.setText(wrong11.charString);
-                lower2.setText(wrong12.charString);
-                lower3.setText(current.charString);
-                lower4.setText(wrong13.charString);
-
-                lower3.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        lower3.setBackgroundColor(Color.GREEN);
-                        lower2.setEnabled(false);
-                        lower1.setEnabled(false);
-                        lower4.setEnabled(false);
-                    }
-                });
-            }
-
-            if(correctBottom == 4)
-            {
-                lower1.setText(wrong11.charString);
-                lower2.setText(wrong12.charString);
-                lower3.setText(wrong13.charString);
-                lower4.setText(current.charString);
-
-                lower4.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View arg0)
-                    {
-                        lower4.setBackgroundColor(Color.GREEN);
-                        lower2.setEnabled(false);
-                        lower3.setEnabled(false);
-                        lower1.setEnabled(false);
-                    }
-                });
-            }
-
-
+                    upper1.setBackgroundColor(Color.GREEN);
+                    upper2.setEnabled(false);
+                    upper3.setEnabled(false);
+                    upper4.setEnabled(false);
+                }
+            });
 
         }
 
+        if(correctTop == 2)
+        {
+            System.out.println("in 1=====");
+
+            upper1.setText(wrong11.getPinyin());
+            upper2.setText(current.getPinyin());
+            upper3.setText(wrong12.getPinyin());
+            upper4.setText(wrong13.getPinyin());
+
+            upper2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    upper2.setBackgroundColor(Color.GREEN);
+                    upper1.setEnabled(false);
+                    upper3.setEnabled(false);
+                    upper4.setEnabled(false);
+
+                }
+            });
+
+        }
+
+        if(correctTop == 3)
+        {
+            upper1.setText(wrong11.getPinyin());
+            upper2.setText(wrong12.getPinyin());
+            upper3.setText(current.getPinyin());
+            upper4.setText(wrong13.getPinyin());
+
+            upper3.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    upper3.setBackgroundColor(Color.GREEN);
+                    upper2.setEnabled(false);
+                    upper1.setEnabled(false);
+                    upper4.setEnabled(false);
+                }
+            });
+        }
+
+        if(correctTop == 4)
+        {
+            upper1.setText(wrong11.getPinyin());
+            upper2.setText(wrong12.getPinyin());
+            upper3.setText(wrong13.getPinyin());
+            upper4.setText(current.getPinyin());
+
+            upper4.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    upper4.setBackgroundColor(Color.GREEN);
+                    upper2.setEnabled(false);
+                    upper3.setEnabled(false);
+                    upper1.setEnabled(false);
+                }
+            });
+        }
+//--------------------------------------------------------------------------------------------------
 
 
+        if(correctBottom == 1)
+        {
+            lower1.setText(current.charString);
+            lower2.setText(wrong11.charString);
+            lower3.setText(wrong12.charString);
+            lower4.setText(wrong13.charString);
+
+            lower1.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    lower1.setBackgroundColor(Color.GREEN);
+                    lower2.setEnabled(false);
+                    lower3.setEnabled(false);
+                    lower4.setEnabled(false);
+                }
+            });
+        }
+        if(correctBottom == 2)
+        {
+            lower1.setText(wrong11.charString);
+            lower2.setText(current.charString);
+            lower3.setText(wrong12.charString);
+            lower4.setText(wrong13.charString);
+
+            lower2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    lower2.setBackgroundColor(Color.GREEN);
+                    lower1.setEnabled(false);
+                    lower3.setEnabled(false);
+                    lower4.setEnabled(false);
+                }
+            });
+        }
+
+        if(correctBottom == 3)
+        {
+            lower1.setText(wrong11.charString);
+            lower2.setText(wrong12.charString);
+            lower3.setText(current.charString);
+            lower4.setText(wrong13.charString);
+
+            lower3.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    lower3.setBackgroundColor(Color.GREEN);
+                    lower2.setEnabled(false);
+                    lower1.setEnabled(false);
+                    lower4.setEnabled(false);
+                }
+            });
+        }
+
+        if(correctBottom == 4)
+        {
+            lower1.setText(wrong11.charString);
+            lower2.setText(wrong12.charString);
+            lower3.setText(wrong13.charString);
+            lower4.setText(current.charString);
+
+            lower4.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View arg0)
+                {
+                    lower4.setBackgroundColor(Color.GREEN);
+                    lower2.setEnabled(false);
+                    lower3.setEnabled(false);
+                    lower1.setEnabled(false);
+                }
+            });
+        }// end correct button 4
+
+        nextButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                callNext(2);
+            }
+        });
     }
 
 }
