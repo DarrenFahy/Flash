@@ -28,6 +28,8 @@ import android.graphics.Color;
 
 public class Main2Activity extends AppCompatActivity
 {
+    Vector<FlashCard> set = manualCards();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +134,6 @@ public class Main2Activity extends AppCompatActivity
                             }//end while
                             //work(v);
                             System.out.println("made it here!   2");
-                            printFC(cardList);
                             in.close();
                         }//end try
 
@@ -185,21 +186,12 @@ public class Main2Activity extends AppCompatActivity
     }
 
 
-    public void printFC(List<FlashCard> d)
-    {
-        for (int i = 0; i < 25; i++)
-            System.out.println( d.get(i).meaning );
-    }
-
-
     public void meaningQuiz(final int x)
     {
-        Vector<FlashCard> set = manualCards();
+        Button nextButton = (Button) findViewById(R.id.nextButton);
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
-        TextView meaning = (TextView) findViewById(R.id.currentCard);
-
-        final Button nextButton = (Button) findViewById(R.id.nextButton);
+        final TextView meaning = (TextView) findViewById(R.id.currentCard);
 
         final Button upper1 = (Button) findViewById(R.id.upper1);
         upper1.setBackgroundResource(android.R.drawable.btn_default);
@@ -228,8 +220,8 @@ public class Main2Activity extends AppCompatActivity
 
         test1.setText("Pinyin");
         test2.setText("Character");
-        int correctTop;
-        int correctBottom;
+        final int correctTop;
+        final int correctBottom;
         Random rand1 = new Random();
         int currentFCNumber;
         int wrong1;
@@ -260,7 +252,7 @@ public class Main2Activity extends AppCompatActivity
         }
         while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
 
-        correctTop = rand1.nextInt(4) + 1;;
+        correctTop = rand1.nextInt(4) + 1;
         correctBottom = rand1.nextInt(4) + 1;
         FlashCard current = set.get(currentFCNumber);
         FlashCard wrong11 = set.get(wrong1);
@@ -275,19 +267,6 @@ public class Main2Activity extends AppCompatActivity
             upper2.setText(wrong11.getPinyin());
             upper3.setText(wrong12.getPinyin());
             upper4.setText(wrong13.getPinyin());
-
-            upper1.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    upper1.setBackgroundColor(Color.GREEN);
-                    upper2.setEnabled(false);
-                    upper3.setEnabled(false);
-                    upper4.setEnabled(false);
-                }
-            });
-
         }
 
         if(correctTop == 2)
@@ -299,19 +278,6 @@ public class Main2Activity extends AppCompatActivity
             upper3.setText(wrong12.getPinyin());
             upper4.setText(wrong13.getPinyin());
 
-            upper2.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    upper2.setBackgroundColor(Color.GREEN);
-                    upper1.setEnabled(false);
-                    upper3.setEnabled(false);
-                    upper4.setEnabled(false);
-
-                }
-            });
-
         }
 
         if(correctTop == 3)
@@ -320,18 +286,6 @@ public class Main2Activity extends AppCompatActivity
             upper2.setText(wrong12.getPinyin());
             upper3.setText(current.getPinyin());
             upper4.setText(wrong13.getPinyin());
-
-            upper3.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    upper3.setBackgroundColor(Color.GREEN);
-                    upper2.setEnabled(false);
-                    upper1.setEnabled(false);
-                    upper4.setEnabled(false);
-                }
-            });
         }
 
         if(correctTop == 4)
@@ -340,19 +294,69 @@ public class Main2Activity extends AppCompatActivity
             upper2.setText(wrong12.getPinyin());
             upper3.setText(wrong13.getPinyin());
             upper4.setText(current.getPinyin());
-
-            upper4.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    upper4.setBackgroundColor(Color.GREEN);
-                    upper2.setEnabled(false);
-                    upper3.setEnabled(false);
-                    upper1.setEnabled(false);
-                }
-            });
         }
+
+        upper1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctTop == 1)
+                    upper1.setBackgroundColor(Color.GREEN);
+                else
+                    upper1.setBackgroundColor(Color.RED);
+
+                upper2.setEnabled(false);
+                upper3.setEnabled(false);
+                upper4.setEnabled(false);
+            }
+        });
+        upper2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctTop == 2)
+                    upper2.setBackgroundColor(Color.GREEN);
+                else
+                    upper2.setBackgroundColor(Color.RED);
+
+                upper1.setEnabled(false);
+                upper3.setEnabled(false);
+                upper4.setEnabled(false);
+
+            }
+        });
+        upper3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctTop == 3)
+                    upper3.setBackgroundColor(Color.GREEN);
+                else
+                    upper3.setBackgroundColor(Color.RED);
+
+                upper2.setEnabled(false);
+                upper1.setEnabled(false);
+                upper4.setEnabled(false);
+            }
+        });
+        upper4.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctTop == 4)
+                    upper4.setBackgroundColor(Color.GREEN);
+                else
+                    upper4.setBackgroundColor(Color.RED);
+
+                upper2.setEnabled(false);
+                upper3.setEnabled(false);
+                upper1.setEnabled(false);
+            }
+        });
 //--------------------------------------------------------------------------------------------------
 
 
@@ -362,18 +366,6 @@ public class Main2Activity extends AppCompatActivity
             lower2.setText(wrong11.charString);
             lower3.setText(wrong12.charString);
             lower4.setText(wrong13.charString);
-
-            lower1.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    lower1.setBackgroundColor(Color.GREEN);
-                    lower2.setEnabled(false);
-                    lower3.setEnabled(false);
-                    lower4.setEnabled(false);
-                }
-            });
         }
         if(correctBottom == 2)
         {
@@ -382,17 +374,6 @@ public class Main2Activity extends AppCompatActivity
             lower3.setText(wrong12.charString);
             lower4.setText(wrong13.charString);
 
-            lower2.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    lower2.setBackgroundColor(Color.GREEN);
-                    lower1.setEnabled(false);
-                    lower3.setEnabled(false);
-                    lower4.setEnabled(false);
-                }
-            });
         }
 
         if(correctBottom == 3)
@@ -401,18 +382,6 @@ public class Main2Activity extends AppCompatActivity
             lower2.setText(wrong12.charString);
             lower3.setText(current.charString);
             lower4.setText(wrong13.charString);
-
-            lower3.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    lower3.setBackgroundColor(Color.GREEN);
-                    lower2.setEnabled(false);
-                    lower1.setEnabled(false);
-                    lower4.setEnabled(false);
-                }
-            });
         }
 
         if(correctBottom == 4)
@@ -421,19 +390,70 @@ public class Main2Activity extends AppCompatActivity
             lower2.setText(wrong12.charString);
             lower3.setText(wrong13.charString);
             lower4.setText(current.charString);
-
-            lower4.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View arg0)
-                {
-                    lower4.setBackgroundColor(Color.GREEN);
-                    lower2.setEnabled(false);
-                    lower3.setEnabled(false);
-                    lower1.setEnabled(false);
-                }
-            });
         }// end correct button 4
+
+        lower1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctBottom == 1)
+                    lower1.setBackgroundColor(Color.GREEN);
+                else
+                    lower1.setBackgroundColor(Color.RED);
+
+                lower2.setEnabled(false);
+                lower3.setEnabled(false);
+                lower4.setEnabled(false);
+            }
+        });
+
+        lower2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctBottom == 2)
+                    lower2.setBackgroundColor(Color.GREEN);
+                else
+                    lower2.setBackgroundColor(Color.RED);
+
+                lower1.setEnabled(false);
+                lower3.setEnabled(false);
+                lower4.setEnabled(false);
+            }
+        });
+
+        lower3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctBottom == 3)
+                    lower3.setBackgroundColor(Color.GREEN);
+                else
+                    lower3.setBackgroundColor(Color.RED);
+
+                lower2.setEnabled(false);
+                lower1.setEnabled(false);
+                lower4.setEnabled(false);
+            }
+        });
+        lower4.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                if (correctBottom == 4)
+                    lower4.setBackgroundColor(Color.GREEN);
+                else
+                    lower4.setBackgroundColor(Color.RED);
+
+                lower2.setEnabled(false);
+                lower3.setEnabled(false);
+                lower1.setEnabled(false);
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener()
         {
@@ -442,8 +462,14 @@ public class Main2Activity extends AppCompatActivity
             {
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
+                    {
+                        if (x >= set.size() -2 )
+                        {
+                            Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                            startActivity(intent);
+                        }
                         meaningQuiz(x+1);
-                        //callNext(x+1);
+                    }
 
             }
         });

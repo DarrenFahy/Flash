@@ -31,14 +31,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-    public void printFC(List<FlashCard> d)
-    {
-        for (int i = 0; i < 25; i++)
-            System.out.println( d.get(i).meaning );
-    }
-
     public void beginQuiz(View view)
     {
         Intent intent = new Intent(this, Main2Activity.class);
