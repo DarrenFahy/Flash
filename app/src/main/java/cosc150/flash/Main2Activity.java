@@ -60,19 +60,7 @@ public class Main2Activity extends AppCompatActivity
 
          if ( str.equals("Meaning"))
         {
-
-            meaningQuiz(fcards, 0);
-          /*  test1.setText("Pinyin");
-            upper1.setText("test");
-            upper2.setText("test");
-            upper3.setText("test");
-            upper4.setText("test");
-
-            test2.setText("Character");
-            lower1.setText("test");
-            lower2.setText("test");
-            lower3.setText("test");
-            lower4.setText("test");*/
+            meaningQuiz(0);
         }
      /*   else if (str.equals("Pinyin"))
         {
@@ -196,12 +184,6 @@ public class Main2Activity extends AppCompatActivity
         return cardList1;
     }
 
-    public void callNext( int x)
-    {
-        Vector<FlashCard> fc = manualCards();
-        meaningQuiz(fc, x+1);
-    }
-
 
     public void printFC(List<FlashCard> d)
     {
@@ -210,19 +192,40 @@ public class Main2Activity extends AppCompatActivity
     }
 
 
-    public void meaningQuiz(Vector<FlashCard> set, int x)
+    public void meaningQuiz(final int x)
     {
+        Vector<FlashCard> set = manualCards();
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
-        final Button upper1 = (Button) findViewById(R.id.upper1);
-        final Button upper2 = (Button) findViewById(R.id.upper2);
-        final Button upper3 = (Button) findViewById(R.id.upper3);
-        final Button upper4 = (Button) findViewById(R.id.upper4);
-        final Button lower1 = (Button) findViewById(R.id.lower1);
-        final Button lower2 = (Button) findViewById(R.id.lower2);
-        final Button lower3 = (Button) findViewById(R.id.lower3);
-        final Button lower4 = (Button) findViewById(R.id.lower4);
+        TextView meaning = (TextView) findViewById(R.id.currentCard);
+
         final Button nextButton = (Button) findViewById(R.id.nextButton);
+
+        final Button upper1 = (Button) findViewById(R.id.upper1);
+        upper1.setBackgroundResource(android.R.drawable.btn_default);
+        upper1.setEnabled(true);
+        final Button upper2 = (Button) findViewById(R.id.upper2);
+        upper2.setBackgroundResource(android.R.drawable.btn_default);
+        upper2.setEnabled(true);
+        final Button upper3 = (Button) findViewById(R.id.upper3);
+        upper3.setBackgroundResource(android.R.drawable.btn_default);
+        upper3.setEnabled(true);
+        final Button upper4 = (Button) findViewById(R.id.upper4);
+        upper4.setBackgroundResource(android.R.drawable.btn_default);
+        upper4.setEnabled(true);
+        final Button lower1 = (Button) findViewById(R.id.lower1);
+        lower1.setBackgroundResource(android.R.drawable.btn_default);
+        lower1.setEnabled(true);
+        final Button lower2 = (Button) findViewById(R.id.lower2);
+        lower2.setBackgroundResource(android.R.drawable.btn_default);
+        lower2.setEnabled(true);
+        final Button lower3 = (Button) findViewById(R.id.lower3);
+        lower3.setBackgroundResource(android.R.drawable.btn_default);
+        lower3.setEnabled(true);
+        final Button lower4 = (Button) findViewById(R.id.lower4);
+        lower4.setBackgroundResource(android.R.drawable.btn_default);
+        lower4.setEnabled(true);
+
         test1.setText("Pinyin");
         test2.setText("Character");
         int correctTop;
@@ -232,10 +235,12 @@ public class Main2Activity extends AppCompatActivity
         int wrong1;
         int wrong2;
         int wrong3;
-        int m = set.size() -1;
+        final int m = set.size() -1;
 
 
         currentFCNumber = x;
+
+        meaning.setText(set.get(x).meaning);
 
         do
         {
@@ -261,7 +266,7 @@ public class Main2Activity extends AppCompatActivity
         FlashCard wrong11 = set.get(wrong1);
         FlashCard wrong12 = set.get(wrong2);
         FlashCard wrong13 = set.get(wrong3);
-       System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
+        System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
 
 
         if(correctTop == 1)
@@ -435,7 +440,11 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onClick(View arg0)
             {
-                callNext(2);
+                if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
+                    if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
+                        meaningQuiz(x+1);
+                        //callNext(x+1);
+
             }
         });
     }
