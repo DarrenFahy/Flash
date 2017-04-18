@@ -223,11 +223,12 @@ public class Main2Activity extends AppCompatActivity
         final int correctTop;
         final int correctBottom;
         Random rand1 = new Random();
-        int currentFCNumber;
+        final int currentFCNumber;
         int wrong1;
         int wrong2;
         int wrong3;
         final int m = set.size() -1;
+
 
 
         currentFCNumber = x;
@@ -302,7 +303,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctTop == 1)
+                {
                     upper1.setBackgroundColor(Color.GREEN);
+                    set.get(currentFCNumber).pastEight++;
+                }
                 else
                     upper1.setBackgroundColor(Color.RED);
 
@@ -460,6 +464,9 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onClick(View arg0)
             {
+
+                if()
+
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
                     {
