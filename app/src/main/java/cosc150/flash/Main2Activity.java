@@ -29,9 +29,9 @@ import android.graphics.Color;
 
 public class Main2Activity extends AppCompatActivity
 {
-    Vector<FlashCard> set = new Vector<FlashCard>();
+    public static Vector<FlashCard> set = new Vector<FlashCard>();
 
-    public void loadCards()
+    public void loadCards(final Vector<FlashCard> set1)
     {
         //System.out.println("in import cards");
         View v;
@@ -50,19 +50,17 @@ public class Main2Activity extends AppCompatActivity
                             String str;
                             System.out.println("made it here!   1");
 
-                            set = new Vector<FlashCard>();
-
                             while ((str = in.readLine()) != null)
                             {
                                 List<String> fclist = Arrays.asList(str.split(","));
-//                                System.out.println("Symbol "+fclist.get(0));
-//                                System.out.println("Pinyin "+fclist.get(1));
-//                                System.out.println("Added meaning "+fclist.get(2));
+                                //System.out.println("Symbol "+fclist.get(0));
+                                //System.out.println("Pinyin "+fclist.get(1));
+                                //System.out.println("Added meaning "+fclist.get(2));
 
                                 FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
 
-                                set.add(fc);
-                                System.out.println("Added meaning "+fclist.get(2));
+                                set1.add(fc);
+
 
                             }//end while
                             //work(v);
@@ -85,8 +83,9 @@ public class Main2Activity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        loadCards();
-        startGame();
+        loadCards(set);
+        System.out.println("The Size of set is: " + set.size());
+      //  startGame();
     }
 
 
@@ -110,7 +109,7 @@ public class Main2Activity extends AppCompatActivity
         {
             meaningQuiz(0);
         }
-     /*   else if (str.equals("Pinyin"))
+   /*     else if (str.equals("Pinyin"))
         {
             test1.setText("Meaning");
             test2.setText("Character");
@@ -125,7 +124,7 @@ public class Main2Activity extends AppCompatActivity
             test1.setText("Meaning");
             test2.setText("Character");
         }
-*/
+
 
         //Specify type of quiz based on switch
         Boolean type = extras.getBoolean("game_mode");
@@ -136,12 +135,12 @@ public class Main2Activity extends AppCompatActivity
 
         System.out.println( "Game mode is: " + type);
         System.out.println( "And number of cards is: " + numCards + " and message: " + str);
-
+*/
     }
 
-    public void saveResults(int x)
+    public void saveResults(int card, int result)
     {
-        set.get(x).pastEight[0] = 1;
+        set.get(card).updatePastEight(result); //result is 1 or 0 based on test results.
     }
 
 
@@ -187,8 +186,11 @@ public class Main2Activity extends AppCompatActivity
         int wrong1;
         int wrong2;
         int wrong3;
-        final int m = set.size() -1;
+        System.out.println("SetSize:::::::::::::: "+ set.size());
 
+
+       final int m = set.size() -1;
+/*
         currentFCNumber = x;
 
         meaning.setText(set.get(x).meaning);
@@ -438,9 +440,7 @@ public class Main2Activity extends AppCompatActivity
                     }
 
             }//end on click
-        });
+        });*/
     }
-
-
 
 }

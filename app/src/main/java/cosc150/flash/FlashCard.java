@@ -1,5 +1,8 @@
 package cosc150.flash;
 
+import java.util.Queue;
+import java.util.Vector;
+
 /**
  * Created by Darren on 4/8/17.
  */
@@ -11,7 +14,7 @@ public class FlashCard
     String meaning;
     String pinyin;
     int character;
-    int pastEight[];
+    Vector <Integer> pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
@@ -24,14 +27,22 @@ public class FlashCard
         charString = cs;
         pinyin = p;
         meaning = m;
-        pastEight = new int[] {0,0,0,0,0,0,0,0};
+        pastEight = new Vector<Integer>();
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
         priority = 0.0;
         quizUpperCorrect = false;
         quizLowerCorrect = false;
     }
 
     //getters
-    public int[] getPastEightAtempts() {return pastEight;}
+    public Vector<Integer> getPastEightAtempts() {return pastEight;}
     public String getMeaning() {return meaning;}
     public String getCharString() {return charString;}
     public double getPriority() {return priority;}
@@ -51,6 +62,12 @@ public class FlashCard
         }
 
         character = i3;
+    }
+
+    public void updatePastEight(int move)
+    {
+        pastEight.remove((pastEight.size()));
+        pastEight.add(move);
     }
 
 
