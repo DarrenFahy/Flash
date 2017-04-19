@@ -16,7 +16,7 @@ import static java.sql.Types.NULL;
 
 public class Main3Activity extends AppCompatActivity
 {
-    public File file = new File(MainActivity.dictionaryFileName);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,14 +51,14 @@ public class Main3Activity extends AppCompatActivity
             MainActivity.set.get(i).quizLowerCorrect = false;
         }
 
-        //time in seconds
-        gameTime = (MainActivity.endTime - MainActivity.beginTime)/ 1000;
-        seconds = gameTime % 60;
-        minutes = gameTime / 60;
-
-
-        timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
-        result.setText(correct + " out of " + Main2Activity.numCards );
+////        //time in seconds
+////        gameTime = (MainActivity.endTime - MainActivity.beginTime)/ 1000;
+////        seconds = gameTime % 60;
+////        minutes = gameTime / 60;
+//
+//
+//        timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
+//        result.setText(correct + " out of " + Main2Activity.numCards );
 
         for (int i=0; i < Main2Activity.numCards; i++)
         {

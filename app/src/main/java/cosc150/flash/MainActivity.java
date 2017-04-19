@@ -83,68 +83,76 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
     public void loadCards()
     {
-/*
-        String ff = "";
+
         try
         {
-            FileInputStream fis = openFileInput("flashcardresults.txt");
+            /*
+            if(!file.equals(null)) {
+                FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                //if(!openFileInput(MainActivity.dictionaryFileName).equals(null))
 
-            int count=100;
-            int cint;
-            byte[] bbuf = new byte[50];
-            fis.read(bbuf, 0, 20 );
-            ff = new String(bbuf);
-            fis.close();
-        }
-        catch(Exception e) {System.out.println("oooops");}
-       // EditText field1 = (EditText) findViewById(R.id.field1);
+                while (!file.equals(null)) {
+                    System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE----");
 
-*/
+                    FlashCard test = (FlashCard) ois.readObject();
+                    System.out.println("Opening results:     " + test + "]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");//.getMeaning());
+                    set.add(test);
 
-        //System.out.println("in import cards");
-        View v;
-        Thread t = new Thread(
-                new Runnable() {
+                }
+                fis.close();
+            }
 
-                    public void run()
-                    {
-                        try
+            else
+            {
+             */   //System.out.println("in import cards");
+            View v;
+            Thread t = new Thread(
+                    new Runnable() {
+
+                        public void run()
                         {
-                            // Create a URL for the desired page
-                            URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
-                            // Read all the text returned by the server
-                            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-                            String str;
-                            System.out.println("made it here!   1");
+                            try
+                            {
+                                // Create a URL for the desired page
+                                URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
+                                // Read all the text returned by the server
+                                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                                String str;
+                                System.out.println("made it here!   1");
 
-                            while ((str = in.readLine()) != null) {
-                                List<String> fclist = Arrays.asList(str.split(","));
-                                System.out.println("Symbol " + fclist.get(0));
-                                System.out.println("Pinyin " + fclist.get(1));
-                                System.out.println("Added meaning " + fclist.get(2));
-                                FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
+                                while ((str = in.readLine()) != null) {
+                                    List<String> fclist = Arrays.asList(str.split(","));
+                                    System.out.println("Symbol " + fclist.get(0));
+                                    System.out.println("Pinyin " + fclist.get(1));
+                                    System.out.println("Added meaning " + fclist.get(2));
+                                    FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
 
-                                set.add(fc);
-                                //System.out.println("Size of list is "+set.size());
+                                    set.add(fc);
+                                    //System.out.println("Size of list is "+set.size());
 
-                            }//end while
+                                }//end while
 
-                            System.out.println("made it here!   2");
-                            in.close();
-                            System.out.println("Size of list is after close is: " + set.size());
-                        }//end try
+                                System.out.println("made it here!   2");
+                                in.close();
+                                System.out.println("Size of list is after close is: " + set.size());
+                            }//end try
 
-                        catch (Exception e) {
-                            Log.i("MA.L----->", "error=" + e);
-                        }
+                            catch (Exception e) {
+                                Log.i("MA.L----->", "error=" + e);
+                            }
 
-                    }//end run()
-                }//end runable()
-        );
-        //System.out.println("made it here????????");
-        t.start();//end thead
+                        }//end run()
+                    }//end runable()
+            );
+            //System.out.println("made it here????????");
+            t.start();//end thead*/
+            // }
+
+        }catch (Exception e) {System.out.print ("Problem reading in data " + e);}
     }
 
 
