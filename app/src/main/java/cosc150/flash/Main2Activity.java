@@ -37,16 +37,8 @@ public class Main2Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         System.out.println("made it here ----------3");
-        loadCards();
         startGame();
     }
-
-    public void loadCards()
-    {
-
-        //return set;
-    }//end load cards
-
 
 
     public void startGame()
