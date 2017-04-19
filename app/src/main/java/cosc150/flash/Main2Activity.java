@@ -30,6 +30,8 @@ import android.graphics.Color;
 public class Main2Activity extends AppCompatActivity
 {
 
+    boolean meaningR[] = new boolean[MainActivity.set.size()-1];
+    static int numCards = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,24 +85,17 @@ public class Main2Activity extends AppCompatActivity
         String txt = extras.getString("text");
 
         //number of cards to test
-        int numCards = extras.getInt("number_cards");
+        numCards = extras.getInt("number_cards");
 
         System.out.println( "Game mode is: " + type);
         System.out.println( "And number of cards is: " + numCards + " and message: " + str);
 
-    }
-
-    //public void saveResults(int x)
-//    {
-//        set.get(x).pastEight[0] = 1;
-//    }
+    }//end start game
 
 
 
     public void meaningQuiz(final int x)
     {
-        System.out.println("Size of list is "+ MainActivity.set.size());
-
         Button nextButton = (Button) findViewById(R.id.nextButton);
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
@@ -140,6 +135,8 @@ public class Main2Activity extends AppCompatActivity
         int wrong1;
         int wrong2;
         int wrong3;
+        boolean top = false;
+        boolean bottom= false;
         final int m = MainActivity.set.size() -1;
 
         currentFCNumber = x;
@@ -148,19 +145,19 @@ public class Main2Activity extends AppCompatActivity
 
         do
         {
-            wrong1 = rand1.nextInt(8) + 0;
+            wrong1 = rand1.nextInt(m) + 0;
         }
         while(wrong1 == currentFCNumber);
 
         do
         {
-            wrong2 = rand1.nextInt(8) + 0;
+            wrong2 = rand1.nextInt(m) + 0;
         }
         while((wrong2 == currentFCNumber)||(wrong2 == wrong1));
 
         do
         {
-            wrong3 = rand1.nextInt(8) + 0;
+            wrong3 = rand1.nextInt(m) + 0;
         }
         while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
 
@@ -216,9 +213,7 @@ public class Main2Activity extends AppCompatActivity
                 if (correctTop == 1)
                 {
                     upper1.setBackgroundColor(Color.GREEN);
-//                    set.get(currentFCNumber).results.remove();
-//                    set.get(currentFCNumber).results.add(1);
-
+                    MainActivity.set.get(currentFCNumber).quizUpperCorrect = true;
                 }
                 else
                     upper1.setBackgroundColor(Color.RED);
@@ -233,8 +228,10 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onClick(View arg0)
             {
-                if (correctTop == 2)
+                if (correctTop == 2) {
                     upper2.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizUpperCorrect = true;
+                }
                 else
                     upper2.setBackgroundColor(Color.RED);
 
@@ -249,8 +246,10 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onClick(View arg0)
             {
-                if (correctTop == 3)
+                if (correctTop == 3) {
                     upper3.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizUpperCorrect = true;
+                }
                 else
                     upper3.setBackgroundColor(Color.RED);
 
@@ -265,7 +264,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctTop == 4)
+                {
                     upper4.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizUpperCorrect = true;
+                }
                 else
                     upper4.setBackgroundColor(Color.RED);
 
@@ -315,7 +317,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctBottom == 1)
+                {
                     lower1.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizLowerCorrect = true;
+                }
                 else
                     lower1.setBackgroundColor(Color.RED);
 
@@ -331,7 +336,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctBottom == 2)
+                {
                     lower2.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizLowerCorrect = true;
+                }
                 else
                     lower2.setBackgroundColor(Color.RED);
 
@@ -347,7 +355,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctBottom == 3)
+                {
                     lower3.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizLowerCorrect = true;
+                }
                 else
                     lower3.setBackgroundColor(Color.RED);
 
@@ -362,7 +373,10 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 if (correctBottom == 4)
+                {
                     lower4.setBackgroundColor(Color.GREEN);
+                    MainActivity.set.get(currentFCNumber).quizLowerCorrect = true;
+                }
                 else
                     lower4.setBackgroundColor(Color.RED);
 
@@ -372,20 +386,20 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+
         nextButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View arg0)
             {
 
-               // if()
-
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
                     {
-                        if (x >= MainActivity.set.size() -2 )
+                        if (x >= MainActivity.set.size() -2 || x >= numCards-1 )
                         {
                             Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                            //intent.putExtra
                             startActivity(intent);
                         }
                         else

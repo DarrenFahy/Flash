@@ -14,6 +14,9 @@ public class FlashCard
     String meaning;
     String pinyin;
     int character;
+    long lastMeaningDate;
+    long lastPinyinDate;
+    long lastCharacterDate;
     Vector <Integer> pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
     boolean quizUpperCorrect;
@@ -70,8 +73,9 @@ public class FlashCard
     //(most current attempt.)
     public void updatePastEight(int result)
     {
-        pastEight.remove(pastEight.size());
+        pastEight.remove(pastEight.size()-1);
         pastEight.add(0,result);
+
     }
 
 

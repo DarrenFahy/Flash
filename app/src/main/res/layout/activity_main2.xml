@@ -131,12 +131,6 @@
                 tools:layout_editor_absoluteX="93dp"
                 tools:layout_editor_absoluteY="254dp" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="center" />
         </TableRow>
     </TableLayout>
 
