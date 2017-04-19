@@ -43,6 +43,12 @@ public class Main2Activity extends AppCompatActivity
         startGame();
     }
 
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.i("key--paused-----","-------message------pause");
+    }
 
     public void startGame()
     {
@@ -70,6 +76,9 @@ public class Main2Activity extends AppCompatActivity
 
     public void Quiz(final int x)
     {
+        currentFCNumber = x;
+
+
         //if it's blacklisted, go to the next card
         if (MainActivity.set.get(x).blackList == true)
         {
@@ -81,7 +90,10 @@ public class Main2Activity extends AppCompatActivity
                 startActivity(intent);
             }
             else
-                Quiz(currentFCNumber+1);
+            {
+                numCards+=1;
+                Quiz(currentFCNumber + 1);
+            }
         }
 
         Button nextButton = (Button) findViewById(R.id.nextButton);
@@ -125,7 +137,6 @@ public class Main2Activity extends AppCompatActivity
         boolean bottom= false;
         final int m = MainActivity.set.size() -1;
 
-        currentFCNumber = x;
 
 
         if (quizType.equals("Meaning") )
@@ -498,6 +509,7 @@ public class Main2Activity extends AppCompatActivity
     public void blackList(View view)
     {
         //System.out.println("")
+        numCards+=1;
         MainActivity.set.get(currentFCNumber).blackList = true;
         nextCard(view);
     }

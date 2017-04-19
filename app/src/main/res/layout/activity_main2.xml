@@ -8,14 +8,16 @@
 
 
     <TableLayout
-        android:layout_width="368dp"
+        android:layout_width="500dp"
         android:layout_height="500dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="5dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -51,7 +53,9 @@
         <TableRow
             android:id="@+id/TopRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <Button
                 android:id="@+id/upper1"
@@ -92,7 +96,9 @@
         <TableRow
             android:id="@+id/BottomRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <Button
                 android:id="@+id/lower1"
@@ -121,7 +127,9 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <Button
                 android:id="@+id/nextButton"

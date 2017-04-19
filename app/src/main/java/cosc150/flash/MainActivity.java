@@ -66,20 +66,20 @@ public class MainActivity extends AppCompatActivity
         if (FlashCard.lastMeaningDate == 0)
             lastMeaning.setText("Meaning has not yet been tested");
         else
-            lastMeaning.setText("Last Meaning quiz was " + timeSinceMeaning/1000 + " minutes ago");
+            lastMeaning.setText("Last Meaning quiz was " + (timeSinceMeaning/1000) + " minutes ago");
 
         TextView lastPinyin = (TextView) findViewById(R.id.lastPinyinTV);
         if (FlashCard.lastPinyinDate == 0)
             lastPinyin.setText("Pinyin has not yet been tested");
         else
-            lastPinyin.setText("Last Pinyin quiz was " + timeSincePinyin/1000 + " minutes ago");
+            lastPinyin.setText("Last Pinyin quiz was " + (timeSincePinyin/1000) + " minutes ago");
 
         TextView lastChar = (TextView) findViewById(R.id.lastCharTV);
 
         if (FlashCard.lastCharacterDate == 0)
             lastChar.setText("Character has not yet been tested");
         else
-            lastChar.setText("Last Character quiz was " + timeSinceChar/1000 + " minutes ago");
+            lastChar.setText("Last Character quiz was " + (timeSinceChar/1000) + " minutes ago");
 
     }
 

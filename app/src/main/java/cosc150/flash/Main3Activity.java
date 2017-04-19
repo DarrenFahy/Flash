@@ -29,6 +29,7 @@ public class Main3Activity extends AppCompatActivity
         saveResults();
     }
 
+
     public void results()
     {
         Long gameTime;
@@ -53,14 +54,14 @@ public class Main3Activity extends AppCompatActivity
             MainActivity.set.get(i).quizLowerCorrect = false;
         }
 
-////        //time in seconds
-////        gameTime = (MainActivity.endTime - MainActivity.beginTime)/ 1000;
-////        seconds = gameTime % 60;
-////        minutes = gameTime / 60;
-//
-//
-//        timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
-//        result.setText(correct + " out of " + Main2Activity.numCards );
+        //time in seconds
+        gameTime = (MainActivity.endTime - MainActivity.beginTime)/ 1000;
+        seconds = gameTime % 60;
+        minutes = gameTime / 60;
+
+
+        timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
+        result.setText(correct + " out of " + Main2Activity.numCards );
 
         for (int i=0; i < Main2Activity.numCards; i++)
         {
@@ -79,7 +80,6 @@ public class Main3Activity extends AppCompatActivity
     {
         try
         {
-
             //System.out.println("In try.");
             FileOutputStream fos = openFileOutput(MainActivity.dictionaryFileName, MODE_PRIVATE);
             //OutputStream buffer = new BufferedOutputStream(f);
