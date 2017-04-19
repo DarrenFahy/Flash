@@ -7,11 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import static java.sql.Types.NULL;
 
 public class Main3Activity extends AppCompatActivity
 {
+    public File file = new File(MainActivity.dictionaryFileName);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,30 +70,48 @@ public class Main3Activity extends AppCompatActivity
             }
             System.out.println();
         }
+
     }
 
     public void saveResults()
     {
-        String filePath = getFilesDir().getPath() + MainActivity.dictionaryFileName;
-        System.out.println("In save results.");
-        File file = new File(filePath);
+
+
         try
         {
-            System.out.println("In try.");
-            FileOutputStream fos = new FileOutputStream(file);
+
+            //System.out.println("In try.");
+            FileOutputStream fos = openFileOutput(MainActivity.dictionaryFileName, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            //For testing purposes to read in from the file we just wrote to.
+            FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
             for (int i = 0; i < Main2Activity.numCards; i++)
             {
                 //write stuff to file
-                oos.write (MainActivity.set.get(i).character );
+                oos.writeObject(MainActivity.set.get(i));//tergetBytes());
+
+                //for testing purposes. Works corectly
+                FlashCard test = (FlashCard) ois.readObject();
+                System.out.println("Test results:     " +test.getMeaning());
+
             }
             fos.close();
-        }
-        catch (Exception e)
-        {
-            System.out.println("Error caught saving results");
-        }
+
+//            FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            while(!ois.readObject().equals(NULL))
+//            {
+//                Object obj = ois.readObject();
+//                System.out.print("IT WORKED!     "+(obj));
+//            }
+
+
+           // fis.close();
+
+        } catch(Exception e) {System.out.println(e+ "ooops-------------");}
 
     }//end saveResults
 
