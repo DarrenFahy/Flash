@@ -41,21 +41,24 @@ public class Main3Activity extends AppCompatActivity
         result.setText(correct + " out of " + Main2Activity.numCards );
         for (int i=0; i < MainActivity.set.size()-1; i++)
         {
+            System.out.print("Past 8:       ");
+
             for (int x = 0; x < 8; x++)
             {
-                System.out.print("Past 8? "+MainActivity.set.get(i).pastEight.get(x));
+                System.out.print(MainActivity.set.get(i).pastEight.get(x));
             }
-            System.out.print(" ");
+            System.out.println();
         }
     }
 
     public void saveResults()
     {
         String filePath = getFilesDir().getPath() + MainActivity.dictionaryFileName;
-
+        System.out.println("In save results.");
         File file = new File(filePath);
         try
         {
+            System.out.println("In try.");
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 

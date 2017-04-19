@@ -38,6 +38,24 @@ public class MainActivity extends AppCompatActivity
 
     public void loadCards()
     {
+/*
+        String ff = "";
+        try
+        {
+            FileInputStream fis = openFileInput("flashcardresults.txt");
+
+            int count=100;
+            int cint;
+            byte[] bbuf = new byte[50];
+            fis.read(bbuf, 0, 20 );
+            ff = new String(bbuf);
+            fis.close();
+        }
+        catch(Exception e) {System.out.println("oooops");}
+       // EditText field1 = (EditText) findViewById(R.id.field1);
+
+*/
+
         //System.out.println("in import cards");
         View v;
         Thread t = new Thread(

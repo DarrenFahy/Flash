@@ -2,13 +2,17 @@ package cosc150.flash;
 
 
 import java.util.Vector;
+import java.io.Serializable;
+import java.text.StringCharacterIterator;
+import java.util.*;
+import java.io.*;
 
 /**
  * Created by Darren on 4/8/17.
  */
 
 
-public class FlashCard
+public class FlashCard implements Serializable
 {
     String charString;
     String meaning;
