@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import static java.sql.Types.NULL;
 
@@ -75,20 +77,20 @@ public class Main3Activity extends AppCompatActivity
 
     public void saveResults()
     {
-
-
         try
         {
 
             //System.out.println("In try.");
             FileOutputStream fos = openFileOutput(MainActivity.dictionaryFileName, MODE_PRIVATE);
+            //OutputStream buffer = new BufferedOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+
 
             //For testing purposes to read in from the file we just wrote to.
             FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            for (int i = 0; i < Main2Activity.numCards; i++)
+            for (int i = 0; i < MainActivity.set.size(); i++)
             {
                 //write stuff to file
                 oos.writeObject(MainActivity.set.get(i));//tergetBytes());
@@ -99,7 +101,7 @@ public class Main3Activity extends AppCompatActivity
 
             }
             fos.close();
-
+            ois.close();
 //            FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
 //            ObjectInputStream ois = new ObjectInputStream(fis);
 //            while(!ois.readObject().equals(NULL))
@@ -115,10 +117,12 @@ public class Main3Activity extends AppCompatActivity
 
     }//end saveResults
 
+
     public void newGame(View view)
     {
         //sends it to main activity 1 & resets variables
         Main2Activity.numCards = 0;
+        System.out.println(MainActivity.file.exists() + "   yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 

@@ -24,7 +24,6 @@ import java.util.Vector;
 *       If statement before loading files--if the disk file is there, load cards and results from file
 *       Else, load from web
 *
-*       Time of last of each of the 3 quizzes. Maybe 3 textViews on MainActivity??
 *
 *       Should we mess with random quiz? Right now it is the same as pinyin?
 *
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     public static String dictionaryFileName = "flashcardresults.txt";
+    public static File file = new File(dictionaryFileName);
     static Vector<FlashCard> set = new Vector<FlashCard>();
     public static long beginTime;
     public static long endTime;
@@ -84,18 +84,17 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void loadCards()
-    {
-
-        try
-        {
-            /*
-            if(!file.equals(null)) {
-                FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+    public void loadCards() {
+        try {
+            FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+            if (fis.getFD() != null)
+            {
+                //FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 //if(!openFileInput(MainActivity.dictionaryFileName).equals(null))
+                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP----");
 
-                while (!file.equals(null)) {
+                while (ois.readObject() != null) {
                     System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE----");
 
                     FlashCard test = (FlashCard) ois.readObject();
@@ -105,54 +104,53 @@ public class MainActivity extends AppCompatActivity
                 }
                 fis.close();
             }
-
             else
             {
-             */   //System.out.println("in import cards");
-            View v;
-            Thread t = new Thread(
-                    new Runnable() {
+                //System.out.println("in import cards");
+                View v;
+                Thread t = new Thread(
+                        new Runnable() {
 
-                        public void run()
-                        {
-                            try
-                            {
-                                // Create a URL for the desired page
-                                URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
-                                // Read all the text returned by the server
-                                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-                                String str;
-                                System.out.println("made it here!   1");
+                            public void run() {
+                                try {
+                                    // Create a URL for the desired page
+                                    URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
+                                    // Read all the text returned by the server
+                                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                                    String str;
+                                    System.out.println("made it here!   1");
 
-                                while ((str = in.readLine()) != null) {
-                                    List<String> fclist = Arrays.asList(str.split(","));
-                                    System.out.println("Symbol " + fclist.get(0));
-                                    System.out.println("Pinyin " + fclist.get(1));
-                                    System.out.println("Added meaning " + fclist.get(2));
-                                    FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
+                                    while ((str = in.readLine()) != null) {
+                                        List<String> fclist = Arrays.asList(str.split(","));
+                                        System.out.println("Symbol " + fclist.get(0));
+                                        System.out.println("Pinyin " + fclist.get(1));
+                                        System.out.println("Added meaning " + fclist.get(2));
+                                        FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
 
-                                    set.add(fc);
-                                    //System.out.println("Size of list is "+set.size());
+                                        set.add(fc);
+                                        //System.out.println("Size of list is "+set.size());
 
-                                }//end while
+                                    }//end while
 
-                                System.out.println("made it here!   2");
-                                in.close();
-                                System.out.println("Size of list is after close is: " + set.size());
-                            }//end try
+                                    System.out.println("made it here!   2");
+                                    in.close();
+                                    System.out.println("Size of list is after close is: " + set.size());
+                                }//end try
 
-                            catch (Exception e) {
-                                Log.i("MA.L----->", "error=" + e);
-                            }
+                                catch (Exception e) {
+                                    Log.i("MA.L----->", "error=" + e);
+                                }
 
-                        }//end run()
-                    }//end runable()
-            );
-            //System.out.println("made it here????????");
-            t.start();//end thead*/
-            // }
+                            }//end run()
+                        }//end runable()
+                );
+                //System.out.println("made it here????????");
+                t.start();//end thead*/
+                // }
 
-        }catch (Exception e) {System.out.print ("Problem reading in data " + e);}
+            }
+        } catch (Exception e) {System.out.print("Problem reading in data " + e);}
+
     }
 
 
