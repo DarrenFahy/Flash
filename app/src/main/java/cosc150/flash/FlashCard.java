@@ -1,5 +1,7 @@
 package cosc150.flash;
 
+
+
 /**
  * Created by Darren on 4/8/17.
  */
@@ -15,6 +17,7 @@ public class FlashCard
     double priority; //the higher the number, the more the user knows the flash card.
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
+    //Queue<Integer> results;
 
     int recentMeaning = 0;
 
@@ -28,6 +31,7 @@ public class FlashCard
         priority = 0.0;
         quizUpperCorrect = false;
         quizLowerCorrect = false;
+        createQ();
     }
 
     //getters
@@ -51,6 +55,15 @@ public class FlashCard
         }
 
         character = i3;
+    }
+
+    public void createQ()
+    {
+        for (int i =0; i<8; i++)
+        {
+            //results.add(0);
+        }
+
     }
 
 

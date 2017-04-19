@@ -29,55 +29,6 @@ import android.graphics.Color;
 
 public class Main2Activity extends AppCompatActivity
 {
-    Vector<FlashCard> set = new Vector<FlashCard>();
-
-    public void loadCards()
-    {
-        //System.out.println("in import cards");
-        View v;
-        Thread t = new Thread(
-                new Runnable ()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            // Create a URL for the desired page
-                            URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
-                            // Read all the text returned by the server
-                            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-                            String str;
-                            System.out.println("made it here!   1");
-
-                            set = new Vector<FlashCard>();
-
-                            while ((str = in.readLine()) != null)
-                            {
-                                List<String> fclist = Arrays.asList(str.split(","));
-//                                System.out.println("Symbol "+fclist.get(0));
-//                                System.out.println("Pinyin "+fclist.get(1));
-//                                System.out.println("Added meaning "+fclist.get(2));
-
-                                FlashCard fc = new FlashCard( fclist.get(0), fclist.get(1), fclist.get(2) );
-
-                                set.add(fc);
-                                System.out.println("Added meaning "+fclist.get(2));
-
-                            }//end while
-                            //work(v);
-                            System.out.println("made it here!   2");
-                            in.close();
-                        }//end try
-
-                        catch (Exception e) {Log.i("MA.L----->", "error=" + e);}
-
-                    }//end run()
-                }//end runable()
-        );
-        t.start();//end thead
-    }
-
 
 
     @Override
@@ -85,9 +36,17 @@ public class Main2Activity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        System.out.println("made it here ----------3");
         loadCards();
         startGame();
     }
+
+    public void loadCards()
+    {
+
+        //return set;
+    }//end load cards
+
 
 
     public void startGame()
@@ -101,7 +60,7 @@ public class Main2Activity extends AppCompatActivity
         title.setText(str);
 
         int min = 0;
-        int max = set.size();
+        int max = MainActivity.set.size();
         Random r = new Random();
         int i1 = r.nextInt(max - min + 1);
 
@@ -139,15 +98,17 @@ public class Main2Activity extends AppCompatActivity
 
     }
 
-    public void saveResults(int x)
-    {
-        set.get(x).pastEight[0] = 1;
-    }
+    //public void saveResults(int x)
+//    {
+//        set.get(x).pastEight[0] = 1;
+//    }
 
 
 
     public void meaningQuiz(final int x)
     {
+        System.out.println("Size of list is "+ MainActivity.set.size());
+
         Button nextButton = (Button) findViewById(R.id.nextButton);
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
@@ -187,11 +148,11 @@ public class Main2Activity extends AppCompatActivity
         int wrong1;
         int wrong2;
         int wrong3;
-        final int m = set.size() -1;
+        final int m = MainActivity.set.size() -1;
 
         currentFCNumber = x;
 
-        meaning.setText(set.get(x).meaning);
+        meaning.setText(MainActivity.set.get(x).meaning);
 
         do
         {
@@ -213,10 +174,10 @@ public class Main2Activity extends AppCompatActivity
 
         correctTop = rand1.nextInt(4) + 1;
         correctBottom = rand1.nextInt(4) + 1;
-        FlashCard current = set.get(currentFCNumber);
-        FlashCard wrong11 = set.get(wrong1);
-        FlashCard wrong12 = set.get(wrong2);
-        FlashCard wrong13 = set.get(wrong3);
+        FlashCard current = MainActivity.set.get(currentFCNumber);
+        FlashCard wrong11 = MainActivity.set.get(wrong1);
+        FlashCard wrong12 = MainActivity.set.get(wrong2);
+        FlashCard wrong13 = MainActivity.set.get(wrong3);
         System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
 
 
@@ -263,7 +224,9 @@ public class Main2Activity extends AppCompatActivity
                 if (correctTop == 1)
                 {
                     upper1.setBackgroundColor(Color.GREEN);
-                    //set.get(currentFCNumber).pastEight++;
+//                    set.get(currentFCNumber).results.remove();
+//                    set.get(currentFCNumber).results.add(1);
+
                 }
                 else
                     upper1.setBackgroundColor(Color.RED);
@@ -428,13 +391,13 @@ public class Main2Activity extends AppCompatActivity
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
                     {
-                        if (x >= set.size() -2 )
+                        if (x >= MainActivity.set.size() -2 )
                         {
                             Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
-                            //intent.putExtra()
                             startActivity(intent);
                         }
-                        meaningQuiz(x+1);
+                        else
+                            meaningQuiz(x+1);
                     }
 
             }//end on click

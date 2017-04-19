@@ -23,11 +23,64 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
+    static Vector<FlashCard> set = new Vector<FlashCard>();
+    //ArrayList<String>
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadCards();
+    }
+
+    public void loadCards()
+    {
+        //System.out.println("in import cards");
+        View v;
+        Thread t = new Thread(
+                new Runnable() {
+
+                    public void run()
+                    {
+                        try
+                        {
+                            // Create a URL for the desired page
+                            URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
+                            // Read all the text returned by the server
+                            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                            String str;
+                            System.out.println("made it here!   1");
+                            //set = new Vector<FlashCard>();
+
+                            while ((str = in.readLine()) != null) {
+                                List<String> fclist = Arrays.asList(str.split(","));
+                                System.out.println("Symbol " + fclist.get(0));
+                                System.out.println("Pinyin " + fclist.get(1));
+                                System.out.println("Added meaning " + fclist.get(2));
+                                //System.out.println("Size of list is "+set.size());
+                                FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
+
+                                set.add(fc);
+                                //System.out.println("Size of list is "+set.size());
+
+                            }//end while
+
+                            System.out.println("made it here!   2");
+                            in.close();
+                            System.out.println("Size of list is after close is: " + set.size());
+                        }//end try
+
+                        catch (Exception e) {
+                            Log.i("MA.L----->", "error=" + e);
+                        }
+
+                    }//end run()
+                }//end runable()
+        );
+        //System.out.println("made it here????????");
+        t.start();//end thead
     }
 
 
