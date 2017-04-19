@@ -1,6 +1,7 @@
 package cosc150.flash;
 
 
+import java.util.Vector;
 
 /**
  * Created by Darren on 4/8/17.
@@ -13,7 +14,7 @@ public class FlashCard
     String meaning;
     String pinyin;
     int character;
-    int pastEight[];
+    Vector <Integer> pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
@@ -27,15 +28,23 @@ public class FlashCard
         charString = cs;
         pinyin = p;
         meaning = m;
-        pastEight = new int[] {0,0,0,0,0,0,0,0};
+        pastEight = new Vector<Integer>();
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
+        pastEight.add(0);
         priority = 0.0;
         quizUpperCorrect = false;
         quizLowerCorrect = false;
-        createQ();
+        ;
     }
 
     //getters
-    public int[] getPastEightAtempts() {return pastEight;}
+    public Vector<Integer> getPastEightAtempts() {return pastEight;}
     public String getMeaning() {return meaning;}
     public String getCharString() {return charString;}
     public double getPriority() {return priority;}
@@ -57,13 +66,12 @@ public class FlashCard
         character = i3;
     }
 
-    public void createQ()
+    //this method removes the last node (oldest attempt) and adds the result to the front
+    //(most current attempt.)
+    public void updatePastEight(int result)
     {
-        for (int i =0; i<8; i++)
-        {
-            //results.add(0);
-        }
-
+        pastEight.remove(pastEight.size());
+        pastEight.add(0,result);
     }
 
 
