@@ -30,8 +30,9 @@ import android.graphics.Color;
 public class Main2Activity extends AppCompatActivity
 {
 
-    boolean meaningR[] = new boolean[MainActivity.set.size()-1];
+    //boolean meaningR[] = new boolean[MainActivity.set.size()-1];
     static int numCards = 0;
+    static String quizType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,57 +49,30 @@ public class Main2Activity extends AppCompatActivity
         Bundle extras = intent.getExtras();
 
         //set title to name of button clicked
-        String str = extras.getString("game_title");
+        quizType = extras.getString("game_title");
         TextView title = (TextView) findViewById(R.id.textView5);
-        title.setText(str);
+        title.setText(quizType);
 
         int min = 0;
         int max = MainActivity.set.size();
         Random r = new Random();
-        int i1 = r.nextInt(max - min + 1);
-
-
-         if ( str.equals("Meaning"))
-        {
-            meaningQuiz(0);
-        }
-     /*   else if (str.equals("Pinyin"))
-        {
-            test1.setText("Meaning");
-            test2.setText("Character");
-        }
-        else if (str.equals("Character"))
-        {
-            test1.setText("Meaning");
-            test2.setText("Pinyin");
-        }
-        else if (str.equals("Random") )
-        {
-            test1.setText("Meaning");
-            test2.setText("Character");
-        }
-*/
-
-        //Specify type of quiz based on switch
-        Boolean type = extras.getBoolean("game_mode");
-        String txt = extras.getString("text");
 
         //number of cards to test
         numCards = extras.getInt("number_cards");
 
-        System.out.println( "Game mode is: " + type);
-        System.out.println( "And number of cards is: " + numCards + " and message: " + str);
+        Quiz(0);
+
 
     }//end start game
 
 
 
-    public void meaningQuiz(final int x)
+    public void Quiz(final int x)
     {
         Button nextButton = (Button) findViewById(R.id.nextButton);
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
-        final TextView meaning = (TextView) findViewById(R.id.currentCard);
+        final TextView currentCard = (TextView) findViewById(R.id.currentCard);
 
         final Button upper1 = (Button) findViewById(R.id.upper1);
         upper1.setBackgroundResource(android.R.drawable.btn_default);
@@ -125,8 +99,6 @@ public class Main2Activity extends AppCompatActivity
         lower4.setBackgroundResource(android.R.drawable.btn_default);
         lower4.setEnabled(true);
 
-        test1.setText("Pinyin");
-        test2.setText("Character");
         final int correctTop;
         final int correctBottom;
         Random rand1 = new Random();
@@ -139,8 +111,34 @@ public class Main2Activity extends AppCompatActivity
         final int m = MainActivity.set.size() -1;
 
         currentFCNumber = x;
+        //made it here--need to change \/\/
 
-        meaning.setText(MainActivity.set.get(x).meaning);
+
+        if (quizType.equals("Meaning") )
+        {
+            test1.setText("Pinyin");
+            test2.setText("Character");
+            currentCard.setText(MainActivity.set.get(x).meaning);
+        }
+        else if (quizType.equals("Pinyin") )
+        {
+            test1.setText("Meaning");
+            test2.setText("Character");
+            currentCard.setText(MainActivity.set.get(x).pinyin);
+        }
+        else if (quizType.equals("Character") )
+        {
+            test1.setText("Meaning");
+            test2.setText("Pinyin");
+            currentCard.setText(MainActivity.set.get(x).charString);
+        }
+        else if (quizType.equals("Random") )
+        {
+            test1.setText("Meaning");
+            test2.setText("Character");
+            currentCard.setText(MainActivity.set.get(x).pinyin);
+        }
+
 
         do
         {
@@ -171,37 +169,78 @@ public class Main2Activity extends AppCompatActivity
 
         if(correctTop == 1)
         {
-            upper1.setText(current.getPinyin());
-            upper2.setText(wrong11.getPinyin());
-            upper3.setText(wrong12.getPinyin());
-            upper4.setText(wrong13.getPinyin());
+            if (quizType.equals("Meaning"))
+            {
+                upper1.setText(current.getPinyin());
+                upper2.setText(wrong11.getPinyin());
+                upper3.setText(wrong12.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+            }
+            else
+            {
+                upper1.setText(current.getMeaning());
+                upper2.setText(wrong11.getMeaning());
+                upper3.setText(wrong12.getMeaning());
+                upper4.setText(wrong13.getMeaning());
+            }
+
         }
 
         if(correctTop == 2)
         {
-            System.out.println("in 1=====");
-
-            upper1.setText(wrong11.getPinyin());
-            upper2.setText(current.getPinyin());
-            upper3.setText(wrong12.getPinyin());
-            upper4.setText(wrong13.getPinyin());
-
+            if (quizType.equals("Meaning"))
+            {
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(current.getPinyin());
+                upper3.setText(wrong12.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+            }
+            else
+            {
+                upper1.setText(wrong11.getMeaning());
+                upper2.setText(current.getMeaning());
+                upper3.setText(wrong12.getMeaning());
+                upper4.setText(wrong13.getMeaning());
+            }
         }
 
         if(correctTop == 3)
         {
-            upper1.setText(wrong11.getPinyin());
-            upper2.setText(wrong12.getPinyin());
-            upper3.setText(current.getPinyin());
-            upper4.setText(wrong13.getPinyin());
+            if (quizType.equals("Meaning"))
+            {
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(wrong12.getPinyin());
+                upper3.setText(current.getPinyin());
+                upper4.setText(wrong13.getPinyin());
+            }
+            else
+            {
+                upper1.setText(wrong11.getMeaning());
+                upper2.setText(wrong12.getMeaning());
+                upper3.setText(current.getMeaning());
+                upper4.setText(wrong13.getMeaning());
+            }
+
+
         }
 
         if(correctTop == 4)
         {
-            upper1.setText(wrong11.getPinyin());
-            upper2.setText(wrong12.getPinyin());
-            upper3.setText(wrong13.getPinyin());
-            upper4.setText(current.getPinyin());
+            if (quizType.equals("Meaning"))
+            {
+                upper1.setText(wrong11.getPinyin());
+                upper2.setText(wrong12.getPinyin());
+                upper3.setText(wrong13.getPinyin());
+                upper4.setText(current.getPinyin());
+            }
+            else
+            {
+                upper1.setText(wrong11.getMeaning());
+                upper2.setText(wrong12.getMeaning());
+                upper3.setText(wrong13.getMeaning());
+                upper4.setText(current.getMeaning());
+            }
+
         }
 
         upper1.setOnClickListener(new View.OnClickListener()
@@ -280,34 +319,77 @@ public class Main2Activity extends AppCompatActivity
 
         if(correctBottom == 1)
         {
-            lower1.setText(current.charString);
-            lower2.setText(wrong11.charString);
-            lower3.setText(wrong12.charString);
-            lower4.setText(wrong13.charString);
+            if (quizType.equals("Character"))
+            {
+                lower1.setText(current.pinyin);
+                lower2.setText(wrong11.pinyin);
+                lower3.setText(wrong12.pinyin);
+                lower4.setText(wrong13.pinyin);
+            }
+            else
+            {
+                lower1.setText(current.charString);
+                lower2.setText(wrong11.charString);
+                lower3.setText(wrong12.charString);
+                lower4.setText(wrong13.charString);
+            }
+
         }
         if(correctBottom == 2)
         {
-            lower1.setText(wrong11.charString);
-            lower2.setText(current.charString);
-            lower3.setText(wrong12.charString);
-            lower4.setText(wrong13.charString);
+            if (quizType.equals("Character"))
+            {
+                lower1.setText(wrong11.pinyin);
+                lower2.setText(current.pinyin);
+                lower3.setText(wrong12.pinyin);
+                lower4.setText(wrong13.pinyin);
+            }
+            else
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(current.charString);
+                lower3.setText(wrong12.charString);
+                lower4.setText(wrong13.charString);
+            }
 
         }
 
         if(correctBottom == 3)
         {
-            lower1.setText(wrong11.charString);
-            lower2.setText(wrong12.charString);
-            lower3.setText(current.charString);
-            lower4.setText(wrong13.charString);
+            if (quizType.equals("Character"))
+            {
+                lower1.setText(wrong11.pinyin);
+                lower2.setText(wrong12.pinyin);
+                lower3.setText(current.pinyin);
+                lower4.setText(wrong13.pinyin);
+            }
+            else
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(wrong12.charString);
+                lower3.setText(current.charString);
+                lower4.setText(wrong13.charString);
+            }
+
         }
 
         if(correctBottom == 4)
         {
-            lower1.setText(wrong11.charString);
-            lower2.setText(wrong12.charString);
-            lower3.setText(wrong13.charString);
-            lower4.setText(current.charString);
+            if (quizType.equals("Character"))
+            {
+                lower1.setText(wrong11.pinyin);
+                lower2.setText(wrong12.pinyin);
+                lower3.setText(wrong13.pinyin);
+                lower4.setText(current.pinyin);
+            }
+            else
+            {
+                lower1.setText(wrong11.charString);
+                lower2.setText(wrong12.charString);
+                lower3.setText(wrong13.charString);
+                lower4.setText(current.charString);
+            }
+
         }// end correct button 4
 
         lower1.setOnClickListener(new View.OnClickListener()
@@ -402,11 +484,12 @@ public class Main2Activity extends AppCompatActivity
                             startActivity(intent);
                         }
                         else
-                            meaningQuiz(x+1);
+                            Quiz(x+1);
                     }
 
             }//end on click
         });
+
     }
 
 

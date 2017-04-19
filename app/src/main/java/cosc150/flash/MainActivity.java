@@ -71,14 +71,12 @@ public class MainActivity extends AppCompatActivity
                             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                             String str;
                             System.out.println("made it here!   1");
-                            //set = new Vector<FlashCard>();
 
                             while ((str = in.readLine()) != null) {
                                 List<String> fclist = Arrays.asList(str.split(","));
                                 System.out.println("Symbol " + fclist.get(0));
                                 System.out.println("Pinyin " + fclist.get(1));
                                 System.out.println("Added meaning " + fclist.get(2));
-                                //System.out.println("Size of list is "+set.size());
                                 FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
 
                                 set.add(fc);
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity
 
         EditText cardNum = (EditText) findViewById(R.id.editText2);
         String no = cardNum.getText().toString();
-        //String text = edit_text.getText.toString;
         int numCards = Integer.parseInt(no);
 
 
