@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     public static String dictionaryFileName = "flashcardresults.txt";
-
     static Vector<FlashCard> set = new Vector<FlashCard>();
-    //ArrayList<String>
+    public static long beginTime;
+    public static long endTime;
 
 
     @Override
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         EditText cardNum = (EditText) findViewById(R.id.editText2);
         String no = cardNum.getText().toString();
-        int numCards = Integer.parseInt(no);
+        Main2Activity.numCards = Integer.parseInt(no);
 
 
         switch (view.getId())
@@ -133,13 +133,12 @@ public class MainActivity extends AppCompatActivity
                 throw new IllegalArgumentException("shit... " );
         }
 
+        beginTime = System.currentTimeMillis();
         String message = srcButton.getText().toString();
-
-        System.out.println("message in MA is: " + message);
 
         extras.putString("game_title", message);
         extras.putBoolean("game_mode", switchState);
-        extras.putInt("number_cards", numCards);
+        extras.putInt("number_cards", Main2Activity.numCards);
         intent.putExtras(extras);
         startActivity(intent);
     }

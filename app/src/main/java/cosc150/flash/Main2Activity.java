@@ -31,7 +31,7 @@ public class Main2Activity extends AppCompatActivity
 {
 
     //boolean meaningR[] = new boolean[MainActivity.set.size()-1];
-    static int numCards = 0;
+    static int numCards;
     static String quizType;
 
     @Override
@@ -479,6 +479,7 @@ public class Main2Activity extends AppCompatActivity
                     {
                         if (x >= MainActivity.set.size() -2 || x >= numCards-1 )
                         {
+                            MainActivity.endTime = System.currentTimeMillis();
                             Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
                             //intent.putExtra
                             startActivity(intent);

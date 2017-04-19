@@ -14,18 +14,19 @@ import java.io.*;
 
 public class FlashCard implements Serializable
 {
+
+    static long lastMeaningDate;
+    static long lastPinyinDate;
+    static long lastCharacterDate;
+
     String charString;
     String meaning;
     String pinyin;
     int character;
-    long lastMeaningDate;
-    long lastPinyinDate;
-    long lastCharacterDate;
     Vector <Integer> pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
-    //Queue<Integer> results;
 
     int recentMeaning = 0;
 
@@ -62,16 +63,7 @@ public class FlashCard implements Serializable
     public void setPinyin(String pinyin) {this.pinyin = pinyin;}
     public void setCharString(String charString) {this.charString = charString;}
     public void setMeaning(String meaning) {this.meaning = meaning;}
-    public void setCharacter(String s)
-    {
-        int i3 = 0x2f20;
-        for ( int i=0; i<100; i++ )
-        {
-            s += Character.toString((char) i3 ); i3++;
-        }
 
-        character = i3;
-    }
 
     //this method removes the last node (oldest attempt) and adds the result to the front
     //(most current attempt.)

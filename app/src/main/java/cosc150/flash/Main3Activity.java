@@ -1,7 +1,9 @@
 package cosc150.flash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
@@ -22,7 +24,12 @@ public class Main3Activity extends AppCompatActivity
 
     public void results()
     {
+        Long gameTime;
+        long minutes;
+        long seconds;
         TextView result = (TextView) findViewById(R.id.textView6);
+        TextView timeTV = (TextView) findViewById(R.id.timeTV);
+
         int correct=0;
         for (int i=0; i < Main2Activity.numCards; i++)
         {
@@ -38,7 +45,16 @@ public class Main3Activity extends AppCompatActivity
             MainActivity.set.get(i).quizUpperCorrect = false;
             MainActivity.set.get(i).quizLowerCorrect = false;
         }
+
+        //time in seconds
+        gameTime = (MainActivity.endTime - MainActivity.beginTime)/ 1000;
+        seconds = gameTime % 60;
+        minutes = gameTime / 60;
+
+
+        timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
         result.setText(correct + " out of " + Main2Activity.numCards );
+
         for (int i=0; i < MainActivity.set.size()-1; i++)
         {
             System.out.print("Past 8:       ");
@@ -74,6 +90,14 @@ public class Main3Activity extends AppCompatActivity
             System.out.println("Error caught saving results");
         }
 
-    }
+    }//end saveResults
 
+    public void newGame(View view)
+    {
+        //sends it to main activity 1 & resets variables
+        Main2Activity.numCards = 0;
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
 }
