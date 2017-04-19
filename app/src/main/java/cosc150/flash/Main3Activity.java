@@ -55,7 +55,7 @@ public class Main3Activity extends AppCompatActivity
         timeTV.setText("Quiz took " + minutes + " minutes and " + seconds + " seconds to complete");
         result.setText(correct + " out of " + Main2Activity.numCards );
 
-        for (int i=0; i < MainActivity.set.size()-1; i++)
+        for (int i=0; i < Main2Activity.numCards; i++)
         {
             System.out.print("Past 8:       ");
 

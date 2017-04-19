@@ -33,6 +33,7 @@ public class Main2Activity extends AppCompatActivity
     //boolean meaningR[] = new boolean[MainActivity.set.size()-1];
     static int numCards;
     static String quizType;
+    static int currentFCNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +70,20 @@ public class Main2Activity extends AppCompatActivity
 
     public void Quiz(final int x)
     {
+        //if it's blacklisted, go to the next card
+        if (MainActivity.set.get(x).blackList == true)
+        {
+            if (currentFCNumber >= MainActivity.set.size() -2 || currentFCNumber >= numCards-1 )
+            {
+                MainActivity.endTime = System.currentTimeMillis();
+                Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                //intent.putExtra
+                startActivity(intent);
+            }
+            else
+                Quiz(currentFCNumber+1);
+        }
+
         Button nextButton = (Button) findViewById(R.id.nextButton);
         TextView test1 = (TextView) findViewById(R.id.otherTV1);
         TextView test2 = (TextView) findViewById(R.id.otherTV2);
@@ -102,7 +117,7 @@ public class Main2Activity extends AppCompatActivity
         final int correctTop;
         final int correctBottom;
         Random rand1 = new Random();
-        final int currentFCNumber;
+        //final int currentFCNumber;
         int wrong1;
         int wrong2;
         int wrong3;
@@ -111,23 +126,25 @@ public class Main2Activity extends AppCompatActivity
         final int m = MainActivity.set.size() -1;
 
         currentFCNumber = x;
-        //made it here--need to change \/\/
 
 
         if (quizType.equals("Meaning") )
         {
+            FlashCard.lastMeaningDate  = System.currentTimeMillis();
             test1.setText("Pinyin");
             test2.setText("Character");
             currentCard.setText(MainActivity.set.get(x).meaning);
         }
         else if (quizType.equals("Pinyin") )
         {
+            FlashCard.lastPinyinDate  = System.currentTimeMillis();
             test1.setText("Meaning");
             test2.setText("Character");
             currentCard.setText(MainActivity.set.get(x).pinyin);
         }
         else if (quizType.equals("Character") )
         {
+            FlashCard.lastCharacterDate  = System.currentTimeMillis();
             test1.setText("Meaning");
             test2.setText("Pinyin");
             currentCard.setText(MainActivity.set.get(x).charString);
@@ -142,19 +159,19 @@ public class Main2Activity extends AppCompatActivity
 
         do
         {
-            wrong1 = rand1.nextInt(m) + 0;
+            wrong1 = rand1.nextInt(m);
         }
         while(wrong1 == currentFCNumber);
 
         do
         {
-            wrong2 = rand1.nextInt(m) + 0;
+            wrong2 = rand1.nextInt(m);
         }
         while((wrong2 == currentFCNumber)||(wrong2 == wrong1));
 
         do
         {
-            wrong3 = rand1.nextInt(m) + 0;
+            wrong3 = rand1.nextInt(m);
         }
         while((wrong3 == currentFCNumber)||(wrong3 == wrong1) ||(wrong3 == wrong2));
 
@@ -220,8 +237,6 @@ public class Main2Activity extends AppCompatActivity
                 upper3.setText(current.getMeaning());
                 upper4.setText(wrong13.getMeaning());
             }
-
-
         }
 
         if(correctTop == 4)
@@ -240,7 +255,6 @@ public class Main2Activity extends AppCompatActivity
                 upper3.setText(wrong13.getMeaning());
                 upper4.setText(current.getMeaning());
             }
-
         }
 
         upper1.setOnClickListener(new View.OnClickListener()
@@ -261,6 +275,7 @@ public class Main2Activity extends AppCompatActivity
                 upper4.setEnabled(false);
             }
         });
+
         upper2.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -276,9 +291,9 @@ public class Main2Activity extends AppCompatActivity
                 upper1.setEnabled(false);
                 upper3.setEnabled(false);
                 upper4.setEnabled(false);
-
             }
         });
+
         upper3.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -296,6 +311,7 @@ public class Main2Activity extends AppCompatActivity
                 upper4.setEnabled(false);
             }
         });
+
         upper4.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -333,7 +349,6 @@ public class Main2Activity extends AppCompatActivity
                 lower3.setText(wrong12.charString);
                 lower4.setText(wrong13.charString);
             }
-
         }
         if(correctBottom == 2)
         {
@@ -353,7 +368,6 @@ public class Main2Activity extends AppCompatActivity
             }
 
         }
-
         if(correctBottom == 3)
         {
             if (quizType.equals("Character"))
@@ -370,9 +384,7 @@ public class Main2Activity extends AppCompatActivity
                 lower3.setText(current.charString);
                 lower4.setText(wrong13.charString);
             }
-
         }
-
         if(correctBottom == 4)
         {
             if (quizType.equals("Character"))
@@ -389,7 +401,6 @@ public class Main2Activity extends AppCompatActivity
                 lower3.setText(wrong13.charString);
                 lower4.setText(current.charString);
             }
-
         }// end correct button 4
 
         lower1.setOnClickListener(new View.OnClickListener()
@@ -448,6 +459,7 @@ public class Main2Activity extends AppCompatActivity
                 lower4.setEnabled(false);
             }
         });
+
         lower4.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -468,29 +480,39 @@ public class Main2Activity extends AppCompatActivity
         });
 
 
+        //only enabled after they select cards (or blacklist the card)
         nextButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View arg0)
             {
-
                 if((!upper1.isEnabled() || !upper2.isEnabled() || !upper3.isEnabled() ||!upper4.isEnabled()))
                     if(!lower1.isEnabled() || !lower2.isEnabled() || !lower3.isEnabled() || !lower4.isEnabled())
-                    {
-                        if (x >= MainActivity.set.size() -2 || x >= numCards-1 )
-                        {
-                            MainActivity.endTime = System.currentTimeMillis();
-                            Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
-                            //intent.putExtra
-                            startActivity(intent);
-                        }
-                        else
-                            Quiz(x+1);
-                    }
-
-            }//end on click
+                        nextCard(arg0);
+            }
         });
 
+    }
+
+
+    public void blackList(View view)
+    {
+        //System.out.println("")
+        MainActivity.set.get(currentFCNumber).blackList = true;
+        nextCard(view);
+    }
+
+    public void nextCard(View view)
+    {
+        if (currentFCNumber >= MainActivity.set.size() -2 || currentFCNumber >= numCards-1 )
+        {
+            MainActivity.endTime = System.currentTimeMillis();
+            Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+            //intent.putExtra
+            startActivity(intent);
+        }
+        else
+            Quiz(currentFCNumber+1);
     }
 
 

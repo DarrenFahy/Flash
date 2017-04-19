@@ -15,9 +15,9 @@ import java.io.*;
 public class FlashCard implements Serializable
 {
 
-    static long lastMeaningDate;
-    static long lastPinyinDate;
-    static long lastCharacterDate;
+    static long lastMeaningDate = 0;
+    static long lastPinyinDate = 0;
+    static long lastCharacterDate =0;
 
     String charString;
     String meaning;
@@ -25,6 +25,7 @@ public class FlashCard implements Serializable
     int character;
     Vector <Integer> pastEight;
     double priority; //the higher the number, the more the user knows the flash card.
+    boolean blackList = false;
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
 

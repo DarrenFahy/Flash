@@ -18,6 +18,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+/*
+*   What we still need to do:
+*
+*       If statement before loading files--if the disk file is there, load cards and results from file
+*       Else, load from web
+*
+*       Time of last of each of the 3 quizzes. Maybe 3 textViews on MainActivity??
+*
+*       Should we mess with random quiz? Right now it is the same as pinyin?
+*
+*       Remove from dictionary button on the card is in a weird spot. I'm done messing with it
+*       Created a flag for not testing at the top of the quiz function
+*
+*       Add more functions for onPause, onDestroy, onQuit...
+*
+*/
 
 public class MainActivity extends AppCompatActivity
 {
@@ -33,7 +49,38 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTimers();
         loadCards();
+    }
+
+    public void setTimers()
+    {
+
+        long currentTime = System.currentTimeMillis();
+        long timeSincePinyin = currentTime - FlashCard.lastPinyinDate;
+        long timeSinceMeaning = currentTime - FlashCard.lastMeaningDate;
+        long timeSinceChar = currentTime - FlashCard.lastCharacterDate;
+
+        TextView lastMeaning = (TextView) findViewById(R.id.lastMeaningTV);
+
+        if (FlashCard.lastMeaningDate == 0)
+            lastMeaning.setText("Meaning has not yet been tested");
+        else
+            lastMeaning.setText("Last Meaning quiz was " + timeSinceMeaning/1000 + " minutes ago");
+
+        TextView lastPinyin = (TextView) findViewById(R.id.lastPinyinTV);
+        if (FlashCard.lastPinyinDate == 0)
+            lastPinyin.setText("Pinyin has not yet been tested");
+        else
+            lastPinyin.setText("Last Pinyin quiz was " + timeSincePinyin/1000 + " minutes ago");
+
+        TextView lastChar = (TextView) findViewById(R.id.lastCharTV);
+
+        if (FlashCard.lastCharacterDate == 0)
+            lastChar.setText("Character has not yet been tested");
+        else
+            lastChar.setText("Last Character quiz was " + timeSinceChar/1000 + " minutes ago");
+
     }
 
     public void loadCards()
@@ -130,9 +177,10 @@ public class MainActivity extends AppCompatActivity
                 srcButton = (Button) findViewById(R.id.button4);
                 break;
             default:
-                throw new IllegalArgumentException("shit... " );
+                throw new IllegalArgumentException("Illegal argument exception in beginQuiz switch");
         }
 
+        //start timer
         beginTime = System.currentTimeMillis();
         String message = srcButton.getText().toString();
 

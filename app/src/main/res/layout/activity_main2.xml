@@ -22,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingRight="5dp"
                 android:text="not this"
                 android:textColor="@android:color/holo_green_dark"
                 android:textSize="24sp"
@@ -31,6 +32,7 @@
                 android:id="@+id/currentCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
                 android:text="TextView"
                 android:textSize="24sp" />
         </TableRow>
@@ -132,6 +134,32 @@
                 tools:layout_editor_absoluteY="254dp" />
 
         </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|right">
+
+        </TableRow>
     </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="360dp"
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="414dp">
+
+        <Button
+            android:id="@+id/blackListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="blackList"
+            android:text="Remove card from quiz"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
