@@ -22,6 +22,7 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity
 {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    public static String dictionaryFileName = "flashcardresults.txt";
 
     static Vector<FlashCard> set = new Vector<FlashCard>();
     //ArrayList<String>

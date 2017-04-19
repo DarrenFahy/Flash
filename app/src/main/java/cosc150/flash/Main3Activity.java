@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 public class Main3Activity extends AppCompatActivity
 {
 
@@ -13,6 +17,7 @@ public class Main3Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         results();
+        saveResults();
     }
 
     public void results()
@@ -42,6 +47,30 @@ public class Main3Activity extends AppCompatActivity
             }
             System.out.print(" ");
         }
+    }
+
+    public void saveResults()
+    {
+        String filePath = getFilesDir().getPath() + MainActivity.dictionaryFileName;
+
+        File file = new File(filePath);
+        try
+        {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            for (int i = 0; i < Main2Activity.numCards; i++)
+            {
+                //write stuff to file
+                oos.write (MainActivity.set.get(i).character );
+            }
+            fos.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error caught saving results");
+        }
+
     }
 
 }
