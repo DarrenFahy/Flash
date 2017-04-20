@@ -14,11 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-import static java.sql.Types.NULL;
-
 public class Main3Activity extends AppCompatActivity
 {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +89,7 @@ public class Main3Activity extends AppCompatActivity
 
             for (int i = 0; i < MainActivity.set.size(); i++)
             {
-                //write stuff to file
+                //write the entire FlashCard object to file--includes attempt history and timestamps
                 oos.writeObject(MainActivity.set.get(i));//tergetBytes());
 
                 //for testing purposes. Works corectly
@@ -120,10 +117,13 @@ public class Main3Activity extends AppCompatActivity
 
     public void newGame(View view)
     {
+        MainActivity.newGame = false;
         //sends it to main activity 1 & resets variables
         Main2Activity.numCards = 0;
-        System.out.println(MainActivity.file.exists() + "   yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+
+
         Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("newGame", newGame2);
         startActivity(intent);
 
     }

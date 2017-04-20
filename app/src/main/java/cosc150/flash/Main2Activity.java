@@ -23,14 +23,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-
 import android.graphics.Color;
 
 
 public class Main2Activity extends AppCompatActivity
 {
 
-    //boolean meaningR[] = new boolean[MainActivity.set.size()-1];
     static int numCards;
     static String quizType;
     static int currentFCNumber;
@@ -64,20 +62,19 @@ public class Main2Activity extends AppCompatActivity
         int max = MainActivity.set.size();
         Random r = new Random();
 
-        //number of cards to test
+        //number of cards to test...made it static so pasing with an intent is useless. Oh well
         numCards = extras.getInt("number_cards");
 
+        //starts quiz at array number 0
         Quiz(0);
 
-
-    }//end start game
+    }//end startGame()
 
 
 
     public void Quiz(final int x)
     {
         currentFCNumber = x;
-
 
         //if it's blacklisted, go to the next card
         if (MainActivity.set.get(x).blackList == true)
@@ -129,14 +126,12 @@ public class Main2Activity extends AppCompatActivity
         final int correctTop;
         final int correctBottom;
         Random rand1 = new Random();
-        //final int currentFCNumber;
         int wrong1;
         int wrong2;
         int wrong3;
         boolean top = false;
         boolean bottom= false;
         final int m = MainActivity.set.size() -1;
-
 
 
         if (quizType.equals("Meaning") )
@@ -192,7 +187,6 @@ public class Main2Activity extends AppCompatActivity
         FlashCard wrong11 = MainActivity.set.get(wrong1);
         FlashCard wrong12 = MainActivity.set.get(wrong2);
         FlashCard wrong13 = MainActivity.set.get(wrong3);
-        System.out.println(correctTop + " ppppppppppppppppppp " + correctBottom);
 
 
         if(correctTop == 1)
@@ -526,7 +520,5 @@ public class Main2Activity extends AppCompatActivity
         else
             Quiz(currentFCNumber+1);
     }
-
-
 
 }

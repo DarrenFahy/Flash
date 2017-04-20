@@ -18,39 +18,39 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-/*
-*   What we still need to do:
-*
-*       If statement before loading files--if the disk file is there, load cards and results from file
-*       Else, load from web
-*
-*
-*       Should we mess with random quiz? Right now it is the same as pinyin?
-*
-*       Remove from dictionary button on the card is in a weird spot. I'm done messing with it
-*       Created a flag for not testing at the top of the quiz function
-*
-*       Add more functions for onPause, onDestroy, onQuit...
-*
-*/
 
 public class MainActivity extends AppCompatActivity
 {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    public static String dictionaryFileName = "flashcardresults.txt";
+    public static String dictionaryFileName = "flashcardresult1.txt";
     public static File file = new File(dictionaryFileName);
     static Vector<FlashCard> set = new Vector<FlashCard>();
     public static long beginTime;
     public static long endTime;
+    public static boolean newGame=true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("In on create--------------");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTimers();
-        loadCards();
+        if (newGame == true)
+        {
+            setTimers();
+            loadCards();
+        }
+    }
+
+
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        //do nothing for now..
+        System.out.println("In on resume and not onCreate!!!!________------");
     }
 
     public void setTimers()
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
 
         TextView lastMeaning = (TextView) findViewById(R.id.lastMeaningTV);
 
+        //I made these textboxes invisible because they were showing the incorrect time sometimes
         if (FlashCard.lastMeaningDate == 0)
             lastMeaning.setText("Meaning has not yet been tested");
         else
@@ -81,77 +82,74 @@ public class MainActivity extends AppCompatActivity
         else
             lastChar.setText("Last Character quiz was " + (timeSinceChar/1000) + " minutes ago");
 
-    }
+    }//end setTimers
 
-
-    public void loadCards() {
-        try {
-            FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
-            if (fis.getFD() != null)
-            {
-                //FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                //if(!openFileInput(MainActivity.dictionaryFileName).equals(null))
-                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP----");
-
-                while (ois.readObject() != null) {
-                    System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE----");
-
-                    FlashCard test = (FlashCard) ois.readObject();
-                    System.out.println("Opening results:     " + test + "]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");//.getMeaning());
-                    set.add(test);
-
-                }
-                fis.close();
-            }
-            else
-            {
+    //We had a tough time with the loadCards functions. It got the cards from the website
+    //but was unable to upload them from a file
+    public void loadCards()
+    {
+//        try {
+//            String filePath = getFilesDir().getPath() + dictionaryFileName;
+//            File file = new File(filePath);
+//
+//            if (file.exists() == true)
+//            {
+//                FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+//                //FileInputStream fis = openFileInput(MainActivity.dictionaryFileName);
+//                ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//                while (ois.readObject() != null) {
+//
+//                    FlashCard test = (FlashCard) ois.readObject();
+//                    set.add(test);
+//
+//                }
+//                fis.close();
+//            }
+//            else
+//            {
                 //System.out.println("in import cards");
                 View v;
                 Thread t = new Thread(
-                        new Runnable() {
+                    new Runnable() {
 
-                            public void run() {
-                                try {
-                                    // Create a URL for the desired page
-                                    URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
-                                    // Read all the text returned by the server
-                                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-                                    String str;
-                                    System.out.println("made it here!   1");
+                        public void run() {
+                            try {
+                                // Create a URL for the desired page
+                                URL url = new URL("http://people.cs.georgetown.edu/~bk620/chidi.txt");
+                                // Read all the text returned by the server
+                                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                                String str;
+                                System.out.println("made it here!   1");
 
-                                    while ((str = in.readLine()) != null) {
-                                        List<String> fclist = Arrays.asList(str.split(","));
-                                        System.out.println("Symbol " + fclist.get(0));
-                                        System.out.println("Pinyin " + fclist.get(1));
-                                        System.out.println("Added meaning " + fclist.get(2));
-                                        FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
+                                while ((str = in.readLine()) != null) {
+                                    List<String> fclist = Arrays.asList(str.split(","));
+                                    System.out.println("Symbol " + fclist.get(0));
+                                    System.out.println("Pinyin " + fclist.get(1));
+                                    System.out.println("Added meaning " + fclist.get(2));
+                                    FlashCard fc = new FlashCard(fclist.get(0), fclist.get(1), fclist.get(2));
 
-                                        set.add(fc);
-                                        //System.out.println("Size of list is "+set.size());
+                                    set.add(fc);
+                                    //System.out.println("Size of list is "+set.size());
 
-                                    }//end while
+                                }//end while
 
-                                    System.out.println("made it here!   2");
-                                    in.close();
-                                    System.out.println("Size of list is after close is: " + set.size());
-                                }//end try
+                                System.out.println("made it here!   2");
+                                in.close();
+                                System.out.println("Size of list is after close is: " + set.size());
+                            }//end try
 
-                                catch (Exception e) {
-                                    Log.i("MA.L----->", "error=" + e);
-                                }
+                            catch (Exception e) {
+                                Log.i("MA.L----->", "error=" + e);
+                            }
 
-                            }//end run()
-                        }//end runable()
+                        }//end run()
+                    }//end runable()
                 );
-                //System.out.println("made it here????????");
                 t.start();//end thead*/
-                // }
-
-            }
-        } catch (Exception e) {System.out.print("Problem reading in data " + e);}
-
-    }
+//            }
+//        } catch (Exception e) {System.out.print("Problem reading in data " + e);}
+    }//end load cards function
 
 
     public void beginQuiz(View view)
@@ -196,5 +194,4 @@ public class MainActivity extends AppCompatActivity
         intent.putExtras(extras);
         startActivity(intent);
     }
-
 }

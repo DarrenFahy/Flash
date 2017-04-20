@@ -22,9 +22,7 @@ public class FlashCard implements Serializable
     String charString;
     String meaning;
     String pinyin;
-    int character;
     Vector <Integer> pastEight;
-    double priority; //the higher the number, the more the user knows the flash card.
     boolean blackList = false;
     boolean quizUpperCorrect;
     boolean quizLowerCorrect;
@@ -46,7 +44,7 @@ public class FlashCard implements Serializable
         pastEight.add(0);
         pastEight.add(0);
         pastEight.add(0);
-        priority = 0.0;
+
         quizUpperCorrect = false;
         quizLowerCorrect = false;
         ;
@@ -56,8 +54,6 @@ public class FlashCard implements Serializable
     public Vector<Integer> getPastEightAtempts() {return pastEight;}
     public String getMeaning() {return meaning;}
     public String getCharString() {return charString;}
-    public double getPriority() {return priority;}
-    public int getCharacter() {return character;}
     public String getPinyin() {return pinyin;}
 
     //setters
@@ -74,7 +70,6 @@ public class FlashCard implements Serializable
         pastEight.add(0,result);
 
     }
-
 
 }
 
